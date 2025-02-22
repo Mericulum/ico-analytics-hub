@@ -1,3 +1,4 @@
+
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 
@@ -32,7 +33,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="text-sm font-semibold text-white">{project.name}</h3>
-                <span className="text-xs text-gray-300">{project.symbol}</span>
+                <span className="text-xs text-white">{project.symbol}</span>
                 {project.isHighlighted && (
                   <Badge variant="outline" className="bg-green-500/10 text-green-500 text-xs">
                     HIGH
@@ -47,23 +48,23 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
                   <Badge className="bg-blue-500 text-white text-xs">NEW</Badge>
                 )}
               </div>
-              <p className="text-xs text-gray-300">{project.category}</p>
+              <p className="text-xs text-white">{project.category}</p>
             </div>
           </div>
         </div>
         <div className="mt-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xs bg-crypto-gray px-2 py-1 rounded text-gray-300">
+            <span className="text-xs bg-crypto-gray px-2 py-1 rounded text-white">
               {project.type} {project.platform ? `on ${project.platform}` : ''}
             </span>
-            <span className="text-xs text-gray-300">
+            <span className="text-xs text-white">
               {project.endDate || project.startDate || project.timeLeft || project.date}
             </span>
           </div>
           {project.value ? (
             <span className="text-xs text-crypto-green font-semibold">{project.value}</span>
           ) : (
-            <span className="text-xs text-gray-300">No Data</span>
+            <span className="text-xs text-white">No Data</span>
           )}
         </div>
       </div>
