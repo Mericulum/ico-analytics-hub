@@ -25,22 +25,22 @@ const mockChartData = [{
   value: 3800
 }];
 
-const COLORS = ['#4AA8FF', '#33C3F0', '#2A93B0', '#1F6F8B', '#153E4D'];
+const COLORS = ['#6FD5FF', '#4BA3CC', '#33C3F0', '#1F6F8B', '#153E4D'];
 
 // Memoized stat card component
 const StatCard = memo(({ stat, index }: { stat: any; index: number; }) => (
-  <Card className={`p-6 bg-[#0A1218]/80 border-2 border-[#4AA8FF] hover:border-[#33C3F0] transition-all duration-300`}>
+  <Card className="p-6 bg-black/40 backdrop-blur-xl border border-crypto-blue/20 hover:border-crypto-green/30 transition-all duration-300 rounded-xl shadow-[0_8px_16px_-6px_rgba(111,213,255,0.2)]">
     <div className="flex items-start justify-between">
       <div>
-        <p className="text-sm text-gray-300">{stat.title}</p>
+        <p className="text-sm text-gray-400">{stat.title}</p>
         <h3 className="text-2xl font-bold text-white mt-1">{stat.value}</h3>
       </div>
-      <div className="p-2 rounded-lg bg-[#4AA8FF]/10">
-        <stat.icon className="w-6 h-6 text-[#4AA8FF]" />
+      <div className="p-2.5 rounded-xl bg-crypto-blue/10 backdrop-blur-sm border border-crypto-blue/20">
+        <stat.icon className="w-6 h-6 text-crypto-blue" />
       </div>
     </div>
     <div className="mt-4">
-      <span className={`text-sm ${stat.change.startsWith('+') ? 'text-[#33C3F0]' : 'text-red-500'}`}>
+      <span className={`text-sm ${stat.change.startsWith('+') ? 'text-crypto-green' : 'text-red-500'}`}>
         {stat.change}
       </span>
       <span className="text-sm text-gray-400 ml-2">vs last month</span>
@@ -50,14 +50,14 @@ const StatCard = memo(({ stat, index }: { stat: any; index: number; }) => (
         <AreaChart data={stat.chartData}>
           <defs>
             <linearGradient id={`colorValue${index}`} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#4AA8FF" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#4AA8FF" stopOpacity={0} />
+              <stop offset="5%" stopColor="#6FD5FF" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#6FD5FF" stopOpacity={0} />
             </linearGradient>
           </defs>
           <Area 
             type="monotone" 
             dataKey="value" 
-            stroke="#4AA8FF" 
+            stroke="#6FD5FF" 
             fillOpacity={1} 
             fill={`url(#colorValue${index})`} 
           />
@@ -71,10 +71,10 @@ StatCard.displayName = 'StatCard';
 
 // Memoized activity card component
 const ActivityCard = memo(() => (
-  <Card className="w-full lg:w-1/2 p-6 bg-[#0A1218]/80 border-2 border-[#4AA8FF] hover:border-[#33C3F0] transition-all duration-300">
+  <Card className="w-full lg:w-1/2 p-6 bg-black/40 backdrop-blur-xl border border-crypto-blue/20 hover:border-crypto-green/30 transition-all duration-300 rounded-xl">
     <div className="flex items-center justify-between mb-6">
-      <h3 className="text-lg font-semibold text-white">On-Chain Activity</h3>
-      <Calendar className="w-5 h-5 text-[#4AA8FF]" />
+      <h3 className="text-lg font-semibold bg-gradient-to-r from-crypto-blue to-crypto-green bg-clip-text text-transparent">On-Chain Activity</h3>
+      <Calendar className="w-5 h-5 text-crypto-blue" />
     </div>
     <div className="space-y-4">
       {[
@@ -82,12 +82,12 @@ const ActivityCard = memo(() => (
         { title: "Smart Contract Deploy", project: "BSC Network", protocol: "DeFi", time: "4h ago" },
         { title: "NFT Collection Launch", project: "Blur Market", volume: "2.5K ETH", time: "6h ago" }
       ].map((activity, index) => (
-        <div key={index} className="flex items-center justify-between py-3 border-b border-[#4AA8FF]/20 hover:border-[#33C3F0]/30 transition-colors">
+        <div key={index} className="flex items-center justify-between py-3 border-b border-crypto-blue/10 hover:border-crypto-green/20 transition-colors group">
           <div>
-            <p className="text-sm font-medium text-white">{activity.title}</p>
+            <p className="text-sm font-medium text-white group-hover:text-crypto-blue transition-colors">{activity.title}</p>
             <p className="text-xs text-gray-400">{activity.project}</p>
           </div>
-          <span className="text-xs text-[#33C3F0]">{activity.time}</span>
+          <span className="text-xs text-crypto-green">{activity.time}</span>
         </div>
       ))}
     </div>
@@ -97,10 +97,10 @@ ActivityCard.displayName = 'ActivityCard';
 
 // Memoized market stats card component
 const MarketStatsCard = memo(() => (
-  <Card className="w-full lg:w-1/2 p-6 bg-[#0A1218]/80 border-2 border-[#4AA8FF] hover:border-[#33C3F0] transition-all duration-300">
+  <Card className="w-full lg:w-1/2 p-6 bg-black/40 backdrop-blur-xl border border-crypto-blue/20 hover:border-crypto-green/30 transition-all duration-300 rounded-xl">
     <div className="flex items-center justify-between mb-6">
-      <h3 className="text-lg font-semibold text-white">Market Statistics</h3>
-      <Globe className="w-5 h-5 text-[#4AA8FF]" />
+      <h3 className="text-lg font-semibold bg-gradient-to-r from-crypto-blue to-crypto-green bg-clip-text text-transparent">Market Statistics</h3>
+      <Globe className="w-5 h-5 text-crypto-blue" />
     </div>
     <div className="grid grid-cols-1 gap-4">
       {[
@@ -108,11 +108,11 @@ const MarketStatsCard = memo(() => (
         { label: "24h Trading Volume", value: "$48.5B", change: "+1.8%" },
         { label: "Total Value Locked", value: "$89.4B", change: "+3.2%" }
       ].map((stat, index) => (
-        <div key={index} className="flex items-center justify-between py-2 border-b border-[#4AA8FF]/20 hover:border-[#33C3F0]/30 transition-colors">
-          <span className="text-sm text-gray-400">{stat.label}</span>
+        <div key={index} className="flex items-center justify-between py-2 border-b border-crypto-blue/10 hover:border-crypto-green/20 transition-colors group">
+          <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">{stat.label}</span>
           <div className="text-right">
-            <span className="text-sm font-medium text-white">{stat.value}</span>
-            <span className="text-xs text-[#33C3F0] ml-2">{stat.change}</span>
+            <span className="text-sm font-medium text-white group-hover:text-crypto-blue transition-colors">{stat.value}</span>
+            <span className="text-xs text-crypto-green ml-2">{stat.change}</span>
           </div>
         </div>
       ))}
@@ -158,31 +158,31 @@ const OverviewStats = () => {
   ];
 
   return (
-    <div className="relative space-y-6">
+    <div className="relative space-y-6 py-12">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-30 pointer-events-none">
-        <div className="absolute -left-1/4 -top-1/4 w-1/2 h-1/2 bg-[#4AA8FF] rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute -right-1/4 -bottom-1/4 w-1/2 h-1/2 bg-[#33C3F0] rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute -left-1/4 -top-1/4 w-1/2 h-1/2 bg-crypto-blue rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute -right-1/4 -bottom-1/4 w-1/2 h-1/2 bg-crypto-green rounded-full blur-[120px] animate-pulse" />
       </div>
 
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-[#4AA8FF] via-white to-[#33C3F0] bg-clip-text text-transparent">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-crypto-blue via-white to-crypto-green bg-clip-text text-transparent">
             Analytics Overview
           </h2>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
             <span className="text-sm text-gray-400">Last updated: Just now</span>
             <Info className="w-4 h-4 text-gray-400" />
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, index) => (
             <StatCard key={index} stat={stat} index={index} />
           ))}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 mt-6">
+        <div className="flex flex-col lg:flex-row gap-6 mt-6">
           <ActivityCard />
           <MarketStatsCard />
         </div>
