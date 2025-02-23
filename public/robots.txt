@@ -2,4 +2,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ico-analytics-hub.lovable.dev/sitemap.xml
+Sitemap: https://mericulum.com/sitemap.xml
+
