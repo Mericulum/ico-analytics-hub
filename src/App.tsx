@@ -8,7 +8,6 @@ import { Card } from "./components/ui/card";
 // Lazy load pages
 const Index = lazy(() => import("@/pages/Index"));
 const SignIn = lazy(() => import("@/pages/SignIn"));
-const Analytics = lazy(() => import("@/pages/Analytics"));
 const Research = lazy(() => import("@/pages/Research"));
 const Games = lazy(() => import("@/pages/Games"));
 const Admin = lazy(() => import("@/pages/Admin"));
@@ -45,7 +44,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/signin" element={<SignIn />} />
-            <Route path="/analytics" element={<Analytics />} />
             <Route path="/research" element={<Research />} />
             <Route path="/games" element={<Games />} />
             <Route path="/admin" element={<Admin />} />

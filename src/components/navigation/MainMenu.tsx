@@ -3,7 +3,6 @@ import { Calculator, BarChart2, Newspaper, Crown, Gamepad2, BookOpen, LineChart,
 
 export const mainMenuItems = [
   { icon: BookOpen, label: "Research", path: "/research" },
-  { icon: LineChart, label: "Analytics", path: "/analytics" },
   { icon: BarChart, label: "ICO Dashboard", path: "/ico-dashboard" },
   { icon: ShieldCheck, label: "Scanner", path: "/scanner" },
   { icon: Newspaper, label: "News", path: "/news" },
