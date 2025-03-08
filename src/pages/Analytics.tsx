@@ -3,14 +3,13 @@ import { useState } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { useICOProjects } from "@/services/icoService";
 import { Loader2 } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { APIStatus } from "@/components/analytics/APIStatus";
 import { AnalyticsTrends } from "@/components/analytics/AnalyticsTrends";
 import { IndustryDistribution } from "@/components/analytics/IndustryDistribution";
 import { AnalyticsSearch } from "@/components/analytics/AnalyticsSearch";
 import { AnalyticsCallToAction } from "@/components/analytics/AnalyticsCallToAction";
+import { AnalyticsTable } from "@/components/analytics/AnalyticsTable";
 import { ICOProject } from "@/types/ico";
-import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 
 const Analytics = () => {
   const { data: projects, isLoading } = useICOProjects();
@@ -33,6 +32,15 @@ const Analytics = () => {
     const bValue = b[sortField];
     return sortDirection === "asc" ? aValue > bValue ? 1 : -1 : aValue < bValue ? 1 : -1;
   });
+
+  const handleSort = (field: keyof ICOProject) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortDirection("desc");
+    }
+  };
 
   if (isLoading) {
     return <div className="flex items-center justify-center h-64">
@@ -70,39 +78,12 @@ const Analytics = () => {
           <IndustryDistribution />
         </div>
 
-        <Card className="p-6 bg-black border-crypto-gray text-white">
-          <h3 className="text-lg font-semibold text-white mb-4">ICO Projects Overview</h3>
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Project Name</TableHead>
-                  <TableHead>Platform</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>ROI</TableHead>
-                  <TableHead>ICO Date</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {sortedProjects.map((project: ICOProject, index: number) => (
-                  <TableRow key={project.id || index}>
-                    <TableCell className="font-medium">{project["Project Name"] || "Unknown"}</TableCell>
-                    <TableCell>{project["Platform"] || "N/A"}</TableCell>
-                    <TableCell>${project["Price"]?.toLocaleString() || "N/A"}</TableCell>
-                    <TableCell>
-                      {project["ROI"] ? (
-                        <span className={project["ROI"] > 0 ? "text-green-500" : "text-red-500"}>
-                          {project["ROI"]}%
-                        </span>
-                      ) : "N/A"}
-                    </TableCell>
-                    <TableCell>{project["ICO date"] || "N/A"}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </Card>
+        <AnalyticsTable 
+          projects={sortedProjects}
+          sortField={sortField}
+          sortDirection={sortDirection}
+          onSort={handleSort}
+        />
 
         <AnalyticsCallToAction />
       </div>
@@ -111,4 +92,3 @@ const Analytics = () => {
 };
 
 export default Analytics;
-
