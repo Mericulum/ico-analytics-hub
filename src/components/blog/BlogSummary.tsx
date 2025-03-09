@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,7 +6,7 @@ import { NewsItem } from "@/services/newsService";
 import { ICOProject } from "@/types/ico";
 import { TrendingUp, TrendingDown, LineChart, Calendar, ArrowUpRight } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { formatDate } from "@/lib/utils";
+import { formatDate, generateMarketSummary } from "@/lib/utils";
 
 interface BlogSummaryProps {
   date: Date;
@@ -21,19 +20,17 @@ const BlogSummary = ({ date, newsData, tokenData }: BlogSummaryProps) => {
   const [topGainers, setTopGainers] = useState<ICOProject[]>([]);
   const [topLosers, setTopLosers] = useState<ICOProject[]>([]);
   const [recentTokens, setRecentTokens] = useState<ICOProject[]>([]);
-  
-  // Filter news for the selected date
+  const [marketSummary, setMarketSummary] = useState<string>("");
+
   useEffect(() => {
     if (newsData?.length) {
       const dateString = date.toDateString();
       
-      // Filter news for the selected date
       const filteredNews = newsData.filter(item => {
         const newsDate = new Date(Number(item.publishedAt) * 1000);
         return newsDate.toDateString() === dateString;
       });
       
-      // Find positive news
       const positiveNews = filteredNews.filter(item => {
         const positiveKeywords = ['surge', 'bull', 'grow', 'gain', 'profit', 'rise', 'up', 'high', 'success'];
         return positiveKeywords.some(keyword => 
@@ -42,7 +39,6 @@ const BlogSummary = ({ date, newsData, tokenData }: BlogSummaryProps) => {
         );
       });
       
-      // Find negative news
       const negativeNews = filteredNews.filter(item => {
         const negativeKeywords = ['crash', 'bear', 'drop', 'loss', 'down', 'fall', 'low', 'fail'];
         return negativeKeywords.some(keyword => 
@@ -56,18 +52,14 @@ const BlogSummary = ({ date, newsData, tokenData }: BlogSummaryProps) => {
     }
   }, [newsData, date]);
   
-  // Process token data
   useEffect(() => {
     if (tokenData?.length) {
-      // Sort by price change (for demo we'll use random data since we don't have historical prices)
       const sortedTokens = [...tokenData];
       
-      // Simulate price changes for demonstration
       sortedTokens.forEach(token => {
-        (token as any).priceChange = Math.random() * 20 - 10; // Random between -10% and +10%
+        (token as any).priceChange = Math.random() * 20 - 10;
       });
       
-      // Sort by price change
       const gainers = sortedTokens
         .filter(token => (token as any).priceChange > 0)
         .sort((a, b) => (b as any).priceChange - (a as any).priceChange)
@@ -78,7 +70,6 @@ const BlogSummary = ({ date, newsData, tokenData }: BlogSummaryProps) => {
         .sort((a, b) => (a as any).priceChange - (b as any).priceChange)
         .slice(0, 5);
       
-      // Find tokens issued in 2024
       const recent = sortedTokens
         .filter(token => {
           if (!token["ICO date"]) return false;
@@ -93,7 +84,11 @@ const BlogSummary = ({ date, newsData, tokenData }: BlogSummaryProps) => {
     }
   }, [tokenData]);
   
-  // Generate next day forecast data
+  useEffect(() => {
+    const summary = generateMarketSummary(date, topPositiveNews, topNegativeNews, topGainers, topLosers);
+    setMarketSummary(summary);
+  }, [date, topPositiveNews, topNegativeNews, topGainers, topLosers]);
+  
   const forecastData = [
     { day: "Today", value: 100 },
     { day: "Tomorrow", value: 100 + (Math.random() * 10 - 5) },
@@ -113,12 +108,7 @@ const BlogSummary = ({ date, newsData, tokenData }: BlogSummaryProps) => {
         </h1>
         
         <div className="prose prose-invert max-w-none">
-          <p className="text-gray-300">
-            Today's cryptocurrency market is showing {forecastTrend ? "positive" : "negative"} signs with 
-            notable performances from {topGainers[0]?.["Project Name"] || "various tokens"}. Key news affecting 
-            the market includes {topPositiveNews[0]?.title || "developments in regulatory frameworks"} and 
-            {topNegativeNews[0]?.title || "macroeconomic uncertainties"}.
-          </p>
+          <div className="text-gray-300 space-y-4" dangerouslySetInnerHTML={{ __html: marketSummary }} />
         </div>
       </Card>
       
