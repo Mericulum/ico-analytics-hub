@@ -28,6 +28,9 @@ const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
               <TableHead className="bg-zinc-900 text-gray-400 font-medium w-[50px]">#</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium">Name</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Price</TableHead>
+              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">24h Change</TableHead>
+              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Market Cap</TableHead>
+              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Volume (24h)</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Status</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium w-[150px]">Price Graph</TableHead>
             </TableRow>
@@ -36,6 +39,7 @@ const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
             {projects.map((project, index) => {
               const mockChartData = generateMockChartData();
               const isPositive = project.isHighlighted;
+              const changePercent = isPositive ? "+2.45%" : "-1.23%";
               
               return (
                 <TableRow 
@@ -62,6 +66,15 @@ const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
                   </TableCell>
                   <TableCell className="text-right font-medium text-white">
                     {project.value}
+                  </TableCell>
+                  <TableCell className={`text-right font-medium ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                    {changePercent}
+                  </TableCell>
+                  <TableCell className="text-right font-medium text-white">
+                    ${(Math.random() * 1000000000).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                  </TableCell>
+                  <TableCell className="text-right font-medium text-white">
+                    ${(Math.random() * 100000000).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                   </TableCell>
                   <TableCell className="text-right">
                     {project.isHighlighted ? (
