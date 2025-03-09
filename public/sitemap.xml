@@ -1,52 +1,28 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/research</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/analytics</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/ico-dashboard</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/news</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/subscription</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/games</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://ico-analytics-hub.lovable.dev/signin</loc>
-    <lastmod>2024-02-21</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
+	<url>
+		<loc>"Address"</loc>
+		<lastmod>"Content Type"</lastmod>
+		<priority>"Status Code"</priority>
+	</url>
+	<url>
+		<loc>"https://mericulum.com/"</loc>
+		<lastmod>"text/html;charset=UTF-8"</lastmod>
+		<priority>"200"</priority>
+	</url>
+	<url>
+		<loc>"https://mericulum.com/research"</loc>
+		<lastmod>"text/html; charset=utf-8"</lastmod>
+		<priority>"200"</priority>
+	</url>
+	<url>
+		<loc>"https://mericulum.com/ico-dashboard"</loc>
+		<lastmod>"text/html;charset=UTF-8"</lastmod>
+		<priority>"200"</priority>
+	</url>
+	<url>
+		<loc>"https://mericulum.com/subscription"</loc>
+		<lastmod>"text/html;charset=UTF-8"</lastmod>
+		<priority>"200"</priority>
+	</url>
 </urlset>
