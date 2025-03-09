@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -165,10 +166,21 @@ const ICOProjectForm = ({ initialData, onSubmit, onCancel }: ICOProjectFormProps
             name="ICO date"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>ICO Date</FormLabel>
+                <FormLabel className="flex items-center">
+                  ICO Date
+                  <span className="ml-2 text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">Important</span>
+                </FormLabel>
                 <FormControl>
-                  <Input type="date" {...field} value={field.value || ""} />
+                  <Input 
+                    type="date" 
+                    {...field} 
+                    value={field.value || ""} 
+                    className="border-green-500/30 focus:border-green-500"
+                  />
                 </FormControl>
+                <div className="text-xs text-gray-400 mt-1">
+                  Enter the token's issue date to highlight 2024 tokens
+                </div>
                 <FormMessage />
               </FormItem>
             )}

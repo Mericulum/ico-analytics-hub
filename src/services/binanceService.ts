@@ -13,19 +13,38 @@ interface BinanceToken {
   isIEO?: boolean;
 }
 
+// Generate a realistic ICO date for demo purposes
+// Gives higher probability to more recent dates
+const generateRealisticLaunchDate = (): string => {
+  const now = new Date();
+  const yearsBack = Math.random() < 0.4 ? 0 : Math.random() < 0.6 ? 1 : 2; // 40% chance for 2024, 20% for 2023, 20% for 2022
+  
+  const year = now.getFullYear() - yearsBack;
+  const month = yearsBack === 0 
+    ? Math.floor(Math.random() * (now.getMonth() + 1)) // Current year: only months up to current month
+    : Math.floor(Math.random() * 12); // Previous years: any month
+  
+  const day = Math.floor(Math.random() * 28) + 1; // Avoid invalid dates
+  
+  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+};
+
 // Convert Binance API data to our ICOProject format
 const mapBinanceToICOProject = (token: BinanceToken): ICOProject => {
+  // Generate a realistic ICO date
+  const launchDate = token.launchDate || generateRealisticLaunchDate();
+  
   return {
     "Project Name": token.symbol.replace("USDT", ""),
     "Platform": "Binance",
     "Price": parseFloat(token.price),
     "ROI": Math.random() * 20 - 10, // Random ROI for demonstration
-    "ICO date": token.launchDate || new Date().toISOString().split('T')[0],
+    "ICO date": launchDate,
     value: `$${parseFloat(token.price).toFixed(2)}`,
     token_price: token.price,
     token_metrics: { volume: parseFloat(token.volume) },
     isHighlighted: true,
-    isNew: token.launchDate ? new Date(token.launchDate) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) : false,
+    isNew: new Date(launchDate) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
   };
 };
 

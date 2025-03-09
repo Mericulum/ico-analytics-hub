@@ -17,7 +17,34 @@ const generateMockChartData = () => {
   }));
 };
 
+// Helper function to check if a token was issued in 2024 or later
+const isRecentToken = (date: string | undefined | null): boolean => {
+  if (!date) return false;
+  const tokenDate = new Date(date);
+  const startOf2024 = new Date('2024-01-01');
+  return tokenDate >= startOf2024;
+};
+
 const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
+  // Sort projects to show tokens from 2024 first
+  const sortedProjects = [...projects].sort((a, b) => {
+    // Check if token A is from 2024 or later
+    const aIsRecent = isRecentToken(a["ICO date"]);
+    // Check if token B is from 2024 or later
+    const bIsRecent = isRecentToken(b["ICO date"]);
+    
+    // If only one is recent, prioritize it
+    if (aIsRecent && !bIsRecent) return -1;
+    if (!aIsRecent && bIsRecent) return 1;
+    
+    // If both are recent or both are not, sort by date (newest first)
+    if (a["ICO date"] && b["ICO date"]) {
+      return new Date(b["ICO date"]).getTime() - new Date(a["ICO date"]).getTime();
+    }
+    
+    return 0;
+  });
+
   return (
     <Card className="p-6 bg-zinc-900/90 border-crypto-blue">
       <h3 className="text-lg font-semibold text-white mb-4">Token Overview</h3>
@@ -28,23 +55,21 @@ const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
               <TableHead className="bg-zinc-900 text-gray-400 font-medium w-[50px]">#</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium">Name</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Price</TableHead>
-              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">24h Change</TableHead>
-              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Market Cap</TableHead>
-              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Volume (24h)</TableHead>
+              <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Issued Date</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium text-right">Status</TableHead>
               <TableHead className="bg-zinc-900 text-gray-400 font-medium w-[150px]">Price Graph</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {projects.map((project, index) => {
+            {sortedProjects.map((project, index) => {
               const mockChartData = generateMockChartData();
               const isPositive = project.isHighlighted;
-              const changePercent = isPositive ? "+2.45%" : "-1.23%";
+              const isNew2024 = isRecentToken(project["ICO date"]);
               
               return (
                 <TableRow 
                   key={index} 
-                  className="cursor-pointer border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors" 
+                  className={`cursor-pointer border-b border-zinc-800/50 hover:bg-zinc-800/30 transition-colors ${isNew2024 ? 'bg-green-900/10' : ''}`}
                   onClick={() => onSelectProject(project)}
                 >
                   <TableCell className="font-medium text-gray-300">
@@ -59,7 +84,14 @@ const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
                         {project["Project Name"]?.charAt(0)}
                       </div>
                       <div>
-                        <div className="font-semibold text-white">{project["Project Name"]}</div>
+                        <div className="font-semibold text-white flex items-center gap-2">
+                          {project["Project Name"]}
+                          {isNew2024 && (
+                            <span className="text-xs px-2 py-0.5 bg-green-500 text-black rounded-full font-semibold">
+                              2024
+                            </span>
+                          )}
+                        </div>
                         <div className="text-sm text-gray-400">{project.Platform}</div>
                       </div>
                     </div>
@@ -67,14 +99,8 @@ const TokensTable = ({ projects, onSelectProject }: TokensTableProps) => {
                   <TableCell className="text-right font-medium text-white">
                     {project.value}
                   </TableCell>
-                  <TableCell className={`text-right font-medium ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
-                    {changePercent}
-                  </TableCell>
                   <TableCell className="text-right font-medium text-white">
-                    ${(Math.random() * 1000000000).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                  </TableCell>
-                  <TableCell className="text-right font-medium text-white">
-                    ${(Math.random() * 100000000).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                    {project["ICO date"] ? new Date(project["ICO date"]).toLocaleDateString() : 'N/A'}
                   </TableCell>
                   <TableCell className="text-right">
                     {project.isHighlighted ? (
