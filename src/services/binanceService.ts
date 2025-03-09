@@ -56,8 +56,8 @@ export const fetchBinanceICOProjects = async (): Promise<ICOProject[]> => {
         price: token.price,
         volume: volumeMap.get(token.symbol) || '0',
       }))
-      // Take only the first 20 tokens for demonstration
-      .slice(0, 20);
+      // Take up to 100 tokens instead of just 20
+      .slice(0, 100);
 
     return tokens.map(mapBinanceToICOProject);
   } catch (error) {
