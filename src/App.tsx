@@ -12,6 +12,7 @@ const Research = lazy(() => import("@/pages/Research"));
 const Games = lazy(() => import("@/pages/Games"));
 const Admin = lazy(() => import("@/pages/Admin"));
 const News = lazy(() => import("@/pages/News"));
+const Blog = lazy(() => import("@/pages/Blog"));
 const Subscription = lazy(() => import("@/pages/Subscription"));
 const Checkout = lazy(() => import("@/pages/Checkout"));
 const ProjectDetails = lazy(() => import("@/pages/ProjectDetails"));
@@ -48,6 +49,8 @@ function App() {
             <Route path="/games" element={<Games />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/news" element={<News />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:date" element={<Blog />} />
             <Route path="/subscription" element={<Subscription />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/ico-dashboard" element={<ICODashboard />} />

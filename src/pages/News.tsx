@@ -1,11 +1,16 @@
+
 import { useEffect, useState } from "react";
 import { useCryptoNews } from "@/services/newsService";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { FileText } from "lucide-react";
 import DashboardLayout from "@/components/DashboardLayout";
 import NewsFilters from "@/components/news/NewsFilters";
 import NewsCard from "@/components/news/NewsCard";
 
 const News = () => {
+  const navigate = useNavigate();
   const { data: newsData, isLoading, error } = useCryptoNews();
   const [news, setNews] = useState<any[]>([]);
   const [selectedCrypto, setSelectedCrypto] = useState<string>("all");
@@ -90,7 +95,16 @@ const News = () => {
   return (
     <DashboardLayout>
       <div className="space-y-8">
-        <h1 className="text-2xl font-bold text-white">Latest Crypto News</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold text-white">Latest Crypto News</h1>
+          <Button 
+            onClick={() => navigate('/blog')}
+            className="bg-crypto-blue hover:bg-crypto-blue/80 flex items-center gap-2"
+          >
+            <FileText className="h-4 w-4" />
+            View Daily Summaries
+          </Button>
+        </div>
         
         <NewsFilters
           cryptoMentions={cryptoMentions}
