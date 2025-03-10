@@ -43,6 +43,8 @@ export const toolMenuItems = [
   ...learnerMenuItems
 ];
 
+export type UserSection = "trader" | "investor" | "learner";
+
 const MainMenu = () => null;
 
 export default MainMenu;
