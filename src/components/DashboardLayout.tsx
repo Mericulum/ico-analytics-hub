@@ -1,10 +1,11 @@
-import { SidebarProvider, Sidebar, SidebarContent, SidebarTrigger } from "@/components/ui/sidebar";
+
+import { SidebarProvider, Sidebar, SidebarContent, SidebarTrigger, SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import { useState } from "react";
 import Footer from "./Footer";
 import AIChatBox from "./chat/AIChatBox";
 import { supabase } from "@/integrations/supabase/client";
 import TopNav from "./navigation/TopNav";
-import { mainMenuItems, toolMenuItems } from "./navigation/MainMenu";
+import { mainMenuItems, traderMenuItems, investorMenuItems } from "./navigation/MainMenu";
 import ToolsMenu from "./navigation/ToolsMenu";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
@@ -19,30 +20,77 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
           <ToolsMenu />
         </div>
 
-        {/* Mobile Sidebar */}
-        <div className="md:hidden">
-          <Sidebar className="border-r border-white/10">
+        <div className="flex pt-32 flex-1">
+          {/* Left Sidebar */}
+          <Sidebar className="border-r border-white/10 bg-transparent">
             <SidebarContent>
-              <nav className="mt-6">
-                {[...mainMenuItems, ...toolMenuItems].map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.path}
-                    className="flex items-center gap-3 px-6 py-4 text-gray-300 hover:bg-white/5 hover:text-crypto-blue transition-colors group"
-                  >
-                    <item.icon size={20} className="group-hover:text-crypto-blue transition-colors" />
-                    <span className="uppercase tracking-wider">{item.label}</span>
-                  </a>
-                ))}
-              </nav>
+              {/* Main Menu */}
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-white/70 text-xs uppercase tracking-wider">Main Menu</SidebarGroupLabel>
+                <SidebarMenu>
+                  {mainMenuItems.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton asChild tooltip={item.label}>
+                        <a
+                          href={item.path}
+                          className="flex items-center gap-3 text-gray-300 hover:text-crypto-blue transition-colors group"
+                        >
+                          <item.icon size={18} className="group-hover:text-crypto-blue transition-colors" />
+                          <span className="uppercase tracking-wider text-sm">{item.label}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroup>
+
+              {/* Trader Menu */}
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-white/70 text-xs uppercase tracking-wider">For Traders</SidebarGroupLabel>
+                <SidebarMenu>
+                  {traderMenuItems.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton asChild tooltip={item.label}>
+                        <a
+                          href={item.path}
+                          className="flex items-center gap-3 text-gray-300 hover:text-crypto-blue transition-colors group"
+                        >
+                          <item.icon size={18} className="group-hover:text-crypto-blue transition-colors" />
+                          <span className="uppercase tracking-wider text-sm">{item.label}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroup>
+
+              {/* Investor Menu */}
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-white/70 text-xs uppercase tracking-wider">For Investors</SidebarGroupLabel>
+                <SidebarMenu>
+                  {investorMenuItems.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton asChild tooltip={item.label}>
+                        <a
+                          href={item.path}
+                          className="flex items-center gap-3 text-gray-300 hover:text-crypto-blue transition-colors group"
+                        >
+                          <item.icon size={18} className="group-hover:text-crypto-blue transition-colors" />
+                          <span className="uppercase tracking-wider text-sm">{item.label}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-        </div>
 
-        {/* Main Content */}
-        <main className="flex-1 pt-32 p-8">
-          {children}
-        </main>
+          {/* Main Content */}
+          <main className="flex-1 p-8">
+            {children}
+          </main>
+        </div>
 
         {/* Footer */}
         <Footer />
