@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -6,6 +7,10 @@ import { useSubscriptionTier } from "@/hooks/useSubscriptionTier";
 import { useAuthState } from "@/hooks/useAuthState";
 import ProfileMenu from "./ProfileMenu";
 import UpgradeButton from "./UpgradeButton";
+import { HelpCircle } from "lucide-react";
+import { Button } from "../ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { useState } from "react";
 
 interface TopNavProps {
   user: any;
@@ -15,6 +20,7 @@ const TopNav = ({ user: initialUser }: TopNavProps) => {
   const navigate = useNavigate();
   const { user, setUser } = useAuthState(initialUser);
   const { subscriptionTier, setSubscriptionTier, checkSubscriptionTier, isLoading } = useSubscriptionTier(user);
+  const [selectedIdentity, setSelectedIdentity] = useState<string>("");
 
   const handleSignOut = async () => {
     try {
@@ -31,6 +37,11 @@ const TopNav = ({ user: initialUser }: TopNavProps) => {
   };
 
   const showUpgradeButton = user && subscriptionTier && subscriptionTier !== 'advanced' && !isLoading;
+
+  const handleIdentitySelect = (value: string) => {
+    setSelectedIdentity(value);
+    toast.success(`You selected: ${value}`);
+  };
 
   return (
     <header className="w-full bg-black border-b border-crypto-gray">
@@ -64,6 +75,29 @@ const TopNav = ({ user: initialUser }: TopNavProps) => {
               ))}
             </div>
           </nav>
+
+          {/* Who are you dropdown */}
+          <div className="mr-4">
+            <Select onValueChange={handleIdentitySelect} value={selectedIdentity}>
+              <SelectTrigger className="w-[180px] bg-crypto-dark border-crypto-blue/30 text-white hover:bg-crypto-gray transition-colors">
+                <div className="flex items-center gap-2">
+                  <HelpCircle size={18} className="text-crypto-blue" />
+                  <SelectValue placeholder="Who are you?" />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="bg-crypto-dark border-crypto-blue/20 text-white z-50">
+                <SelectItem value="trader" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer">
+                  Trader
+                </SelectItem>
+                <SelectItem value="investor" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer">
+                  Investor
+                </SelectItem>
+                <SelectItem value="learner" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer">
+                  Learning Bird
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
           {/* Profile Section */}
           <div className="flex items-center gap-4">
