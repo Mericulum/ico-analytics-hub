@@ -1,3 +1,4 @@
+
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { format as dateFnsFormat } from "date-fns"
@@ -37,21 +38,6 @@ const economicFactors = [
   'Dollar Strength', 'Institutional Adoption', 'Corporate Treasury', 'ETFs',
   'Global Remittances', 'Cross-border Payments', 'Banking Crisis', 'Financial Inclusion'
 ];
-
-/**
- * Determines if a path belongs to trader or investor sections
- * @param path Current URL path
- * @returns Object with isTrader and isInvestor flags
- */
-export function getUserType(path: string) {
-  const traderPaths = ['/market-analysis', '/trading-signals', '/compare', '/calculator'];
-  const investorPaths = ['/ico-dashboard', '/scanner', '/portfolio'];
-  
-  return {
-    isTrader: traderPaths.some(p => path.startsWith(p)),
-    isInvestor: investorPaths.some(p => path.startsWith(p))
-  };
-}
 
 /**
  * Generates a comprehensive 1000-word market summary including political and legal topics
