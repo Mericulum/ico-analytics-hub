@@ -1,7 +1,8 @@
 
 import { 
   Calculator, BarChart2, Newspaper, Crown, Gamepad2, BookOpen, 
-  LineChart, BarChart, ShieldCheck, FileText, TrendingUp, DollarSign 
+  LineChart, BarChart, ShieldCheck, FileText, TrendingUp, DollarSign,
+  GraduationCap, Book, Lightbulb
 } from "lucide-react";
 
 // Menu items for general navigation
@@ -28,10 +29,18 @@ export const investorMenuItems = [
   { icon: DollarSign, label: "Portfolio", path: "/portfolio" },
 ];
 
+// Menu items specifically for learners
+export const learnerMenuItems = [
+  { icon: GraduationCap, label: "Courses", path: "/courses" },
+  { icon: Book, label: "Tutorials", path: "/tutorials" },
+  { icon: Lightbulb, label: "Tips & Strategies", path: "/tips-strategies" },
+];
+
 // Combined tools menu items (for mobile/dropdown usage)
 export const toolMenuItems = [
   ...traderMenuItems,
-  ...investorMenuItems
+  ...investorMenuItems,
+  ...learnerMenuItems
 ];
 
 const MainMenu = () => null;

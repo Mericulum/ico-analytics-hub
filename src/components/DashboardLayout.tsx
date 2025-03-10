@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import AIChatBox from "./chat/AIChatBox";
 import { supabase } from "@/integrations/supabase/client";
 import TopNav from "./navigation/TopNav";
-import { mainMenuItems, traderMenuItems, investorMenuItems } from "./navigation/MainMenu";
+import { mainMenuItems, traderMenuItems, investorMenuItems, learnerMenuItems } from "./navigation/MainMenu";
 import ToolsMenu from "./navigation/ToolsMenu";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
@@ -69,6 +69,26 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 <SidebarGroupLabel className="text-white/70 text-xs uppercase tracking-wider">For Investors</SidebarGroupLabel>
                 <SidebarMenu>
                   {investorMenuItems.map((item) => (
+                    <SidebarMenuItem key={item.label}>
+                      <SidebarMenuButton asChild tooltip={item.label}>
+                        <a
+                          href={item.path}
+                          className="flex items-center gap-3 text-gray-300 hover:text-crypto-blue transition-colors group"
+                        >
+                          <item.icon size={18} className="group-hover:text-crypto-blue transition-colors" />
+                          <span className="uppercase tracking-wider text-sm">{item.label}</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))}
+                </SidebarMenu>
+              </SidebarGroup>
+
+              {/* Learner Menu */}
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-white/70 text-xs uppercase tracking-wider">For Learners</SidebarGroupLabel>
+                <SidebarMenu>
+                  {learnerMenuItems.map((item) => (
                     <SidebarMenuItem key={item.label}>
                       <SidebarMenuButton asChild tooltip={item.label}>
                         <a
