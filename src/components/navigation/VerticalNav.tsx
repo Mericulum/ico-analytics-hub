@@ -1,8 +1,8 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { traderMenuItems, investorMenuItems, learnerMenuItems } from "./MainMenu";
+import { traderMenuItems, investorMenuItems, learnerMenuItems, toolMenuItems, mainMenuItems } from "./MainMenu";
 import { Button } from "../ui/button";
 
 interface VerticalNavProps {
@@ -24,8 +24,8 @@ const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
       case "learner":
         return learnerMenuItems;
       default:
-        // If no identity is selected, show empty menu
-        return [];
+        // If no identity is selected, show main menu
+        return mainMenuItems;
     }
   };
 
@@ -37,7 +37,7 @@ const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
   };
 
   return (
-    <div className={`fixed left-0 top-32 h-[calc(100vh-8rem)] transition-all duration-300 z-10 ${
+    <div className={`fixed left-0 top-20 h-[calc(100vh-8rem)] transition-all duration-300 z-10 ${
       isCollapsed ? "w-16" : "w-60"
     } bg-crypto-dark border-r border-crypto-blue/20`}>
       {/* Toggle button */}
@@ -51,31 +51,64 @@ const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
       </Button>
       
       {/* Menu Items */}
-      <div className="pt-12 px-2">
-        {selectedIdentity ? (
-          <div className="space-y-2">
-            {menuItems.map((item) => (
-              <button
-                key={item.label}
-                className={`flex items-center w-full ${
-                  isCollapsed ? "justify-center" : "justify-start"
-                } p-3 rounded-lg transition-colors ${
-                  location.pathname === item.path 
-                    ? "bg-crypto-blue/20 text-white" 
-                    : "text-gray-300 hover:bg-crypto-blue/10 hover:text-white"
-                }`}
-                onClick={() => navigate(item.path)}
-              >
-                <item.icon size={20} className={isCollapsed ? "mx-auto" : "mr-3"} />
-                {!isCollapsed && <span className="font-medium text-sm whitespace-nowrap">{item.label}</span>}
-              </button>
-            ))}
+      <div className="pt-12 px-2 flex flex-col h-full">
+        {/* Main Menu Section */}
+        <div className="space-y-2 mb-6">
+          {selectedIdentity ? (
+            <>
+              <div className={`mb-2 px-3 ${isCollapsed ? "text-center" : ""}`}>
+                <p className={`text-xs uppercase text-crypto-blue font-semibold ${isCollapsed ? "hidden" : "block"}`}>
+                  {selectedIdentity.charAt(0).toUpperCase() + selectedIdentity.slice(1)} Menu
+                </p>
+              </div>
+              {menuItems.map((item) => (
+                <button
+                  key={item.label}
+                  className={`flex items-center w-full ${
+                    isCollapsed ? "justify-center" : "justify-start"
+                  } p-3 rounded-lg transition-colors ${
+                    location.pathname === item.path 
+                      ? "bg-crypto-blue/20 text-white" 
+                      : "text-gray-300 hover:bg-crypto-blue/10 hover:text-white"
+                  }`}
+                  onClick={() => navigate(item.path)}
+                >
+                  <item.icon size={20} className={isCollapsed ? "mx-auto" : "mr-3"} />
+                  {!isCollapsed && <span className="font-medium text-sm whitespace-nowrap">{item.label}</span>}
+                </button>
+              ))}
+            </>
+          ) : (
+            <div className={`text-center text-sm text-gray-400 ${isCollapsed ? "hidden" : "block"} px-4 py-4`}>
+              Select an identity from the top navigation to see relevant menu items
+            </div>
+          )}
+        </div>
+
+        {/* Tools Section */}
+        <div className="mt-auto mb-8 space-y-2">
+          <div className={`mb-2 px-3 ${isCollapsed ? "text-center" : ""}`}>
+            <p className={`text-xs uppercase text-crypto-blue font-semibold ${isCollapsed ? "hidden" : "block"}`}>
+              Tools
+            </p>
           </div>
-        ) : (
-          <div className={`text-center text-sm text-gray-400 ${isCollapsed ? "hidden" : "block"} px-4 py-8`}>
-            Select an identity from the top navigation to see relevant menu items
-          </div>
-        )}
+          {toolMenuItems.map((item) => (
+            <button
+              key={item.label}
+              className={`flex items-center w-full ${
+                isCollapsed ? "justify-center" : "justify-start"
+              } p-3 rounded-lg transition-colors ${
+                location.pathname === item.path 
+                  ? "bg-crypto-blue/20 text-white" 
+                  : "text-gray-300 hover:bg-crypto-blue/10 hover:text-white"
+              }`}
+              onClick={() => navigate(item.path)}
+            >
+              <item.icon size={20} className={isCollapsed ? "mx-auto" : "mr-3"} />
+              {!isCollapsed && <span className="font-medium text-sm whitespace-nowrap">{item.label}</span>}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

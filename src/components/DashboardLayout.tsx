@@ -6,7 +6,6 @@ import AIChatBox from "./chat/AIChatBox";
 import { supabase } from "@/integrations/supabase/client";
 import TopNav from "./navigation/TopNav";
 import VerticalNav from "./navigation/VerticalNav";
-import ToolsMenu from "./navigation/ToolsMenu";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => supabase.auth.getUser());
@@ -19,10 +18,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex flex-col w-full bg-black text-white">
-        {/* Navigation */}
+        {/* Top Navigation */}
         <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#143442] to-[#0A1A21] backdrop-blur-lg">
           <TopNav user={user} onIdentityChange={handleIdentityChange} />
-          <ToolsMenu />
         </div>
 
         {/* Vertical Navigation */}
