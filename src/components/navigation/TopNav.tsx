@@ -1,22 +1,20 @@
-
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { mainMenuItems } from "./MainMenu";
 import { useSubscriptionTier } from "@/hooks/useSubscriptionTier";
 import { useAuthState } from "@/hooks/useAuthState";
 import ProfileMenu from "./ProfileMenu";
 import UpgradeButton from "./UpgradeButton";
 import { HelpCircle } from "lucide-react";
-import { Button } from "../ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { useState } from "react";
 
 interface TopNavProps {
   user: any;
+  onIdentityChange: (identity: string) => void;
 }
 
-const TopNav = ({ user: initialUser }: TopNavProps) => {
+const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
   const navigate = useNavigate();
   const { user, setUser } = useAuthState(initialUser);
   const { subscriptionTier, setSubscriptionTier, checkSubscriptionTier, isLoading } = useSubscriptionTier(user);
@@ -40,6 +38,7 @@ const TopNav = ({ user: initialUser }: TopNavProps) => {
 
   const handleIdentitySelect = (value: string) => {
     setSelectedIdentity(value);
+    onIdentityChange(value);
     toast.success(`You selected: ${value}`);
   };
 
@@ -60,21 +59,8 @@ const TopNav = ({ user: initialUser }: TopNavProps) => {
             />
           </div>
 
-          {/* Main Menu */}
-          <nav className="hidden md:flex ml-8 flex-1">
-            <div className="flex items-center space-x-8">
-              {mainMenuItems.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.path}
-                  className="flex items-center gap-2 text-gray-300 hover:text-crypto-blue transition-colors group"
-                >
-                  <item.icon size={18} className="group-hover:text-crypto-blue transition-colors" />
-                  <span className="font-medium uppercase tracking-wider text-sm">{item.label}</span>
-                </a>
-              ))}
-            </div>
-          </nav>
+          {/* Flexible spacer */}
+          <div className="flex-1"></div>
 
           {/* Who are you dropdown */}
           <div className="mr-4">
