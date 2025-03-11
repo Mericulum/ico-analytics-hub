@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { traderMenuItems, investorMenuItems, learnerMenuItems, toolMenuItems, mainMenuItems } from "./MainMenu";
@@ -12,7 +12,10 @@ interface VerticalNavProps {
 const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    const savedState = localStorage.getItem("sidebarCollapsed");
+    return savedState ? JSON.parse(savedState) : false;
+  });
 
   // Choose menu items based on selected identity
   const getMenuItems = () => {
@@ -33,7 +36,15 @@ const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
 
   // Handle collapse toggle
   const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
+    const newState = !isCollapsed;
+    setIsCollapsed(newState);
+    localStorage.setItem("sidebarCollapsed", JSON.stringify(newState));
+  };
+
+  // Format identity name for display
+  const formatIdentityName = () => {
+    if (!selectedIdentity) return "";
+    return selectedIdentity.charAt(0).toUpperCase() + selectedIdentity.slice(1);
   };
 
   return (
@@ -58,7 +69,7 @@ const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
             <>
               <div className={`mb-2 px-3 ${isCollapsed ? "text-center" : ""}`}>
                 <p className={`text-xs uppercase text-crypto-blue font-semibold ${isCollapsed ? "hidden" : "block"}`}>
-                  {selectedIdentity.charAt(0).toUpperCase() + selectedIdentity.slice(1)} Menu
+                  {formatIdentityName()} Menu
                 </p>
               </div>
               {menuItems.map((item) => (

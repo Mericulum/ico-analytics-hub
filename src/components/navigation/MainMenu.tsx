@@ -21,12 +21,14 @@ export const traderMenuItems = [
   { icon: BarChart, label: "ICO Dashboard", path: "/ico-dashboard" },
   { icon: Newspaper, label: "News", path: "/news" },
   { icon: Calculator, label: "Calculator", path: "/calculator" },
+  { icon: FileText, label: "Blog", path: "/blog" },
 ];
 
 export const investorMenuItems = [
   { icon: BookOpen, label: "Research", path: "/research" },
   { icon: BarChart, label: "ICO Dashboard", path: "/ico-dashboard" },
   { icon: ShieldCheck, label: "Scanner", path: "/scanner" },
+  { icon: Newspaper, label: "News", path: "/news" },
   { icon: FileText, label: "Blog", path: "/blog" },
 ];
 

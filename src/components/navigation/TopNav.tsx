@@ -8,7 +8,7 @@ import ProfileMenu from "./ProfileMenu";
 import UpgradeButton from "./UpgradeButton";
 import { HelpCircle } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TopNavProps {
   user: any;
@@ -21,12 +21,22 @@ const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
   const { subscriptionTier, setSubscriptionTier, checkSubscriptionTier, isLoading } = useSubscriptionTier(user);
   const [selectedIdentity, setSelectedIdentity] = useState<string>("");
 
+  // Load identity from localStorage on component mount
+  useEffect(() => {
+    const savedIdentity = localStorage.getItem("userIdentity");
+    if (savedIdentity) {
+      setSelectedIdentity(savedIdentity);
+      onIdentityChange(savedIdentity);
+    }
+  }, [onIdentityChange]);
+
   const handleSignOut = async () => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       setUser(null);
       setSubscriptionTier(null);
+      localStorage.removeItem("userIdentity");
       toast.success("Signed out successfully");
       navigate("/signin");
     } catch (error) {
@@ -40,6 +50,10 @@ const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
   const handleIdentitySelect = (value: string) => {
     setSelectedIdentity(value);
     onIdentityChange(value);
+    
+    // Save to localStorage
+    localStorage.setItem("userIdentity", value);
+    
     toast.success(`You selected: ${value}`);
   };
 
