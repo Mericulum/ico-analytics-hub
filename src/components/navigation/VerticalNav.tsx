@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { traderMenuItems, investorMenuItems, learnerMenuItems, toolMenuItems, mainMenuItems } from "./MainMenu";
 import { Button } from "../ui/button";
+import { useSidebar } from "../ui/sidebar";
 
 interface VerticalNavProps {
   selectedIdentity: string;
@@ -12,10 +13,16 @@ interface VerticalNavProps {
 const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [isCollapsed, setIsCollapsed] = useState(() => {
+  const { state, setOpen } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
+  useEffect(() => {
+    // Load sidebar state from localStorage on component mount
     const savedState = localStorage.getItem("sidebarCollapsed");
-    return savedState ? JSON.parse(savedState) : false;
-  });
+    if (savedState !== null) {
+      setOpen(!JSON.parse(savedState));
+    }
+  }, [setOpen]);
 
   // Choose menu items based on selected identity
   const getMenuItems = () => {
@@ -36,9 +43,9 @@ const VerticalNav = ({ selectedIdentity }: VerticalNavProps) => {
 
   // Handle collapse toggle
   const toggleSidebar = () => {
-    const newState = !isCollapsed;
-    setIsCollapsed(newState);
-    localStorage.setItem("sidebarCollapsed", JSON.stringify(newState));
+    const newCollapsedState = !isCollapsed;
+    setOpen(isCollapsed);
+    localStorage.setItem("sidebarCollapsed", JSON.stringify(newCollapsedState));
   };
 
   // Format identity name for display

@@ -1,11 +1,26 @@
 
-import { SidebarProvider, SidebarContent, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarContent, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { useState, useEffect } from "react";
 import Footer from "./Footer";
 import AIChatBox from "./chat/AIChatBox";
 import { supabase } from "@/integrations/supabase/client";
 import TopNav from "./navigation/TopNav";
 import VerticalNav from "./navigation/VerticalNav";
+
+const DashboardContent = ({ children }: { children: React.ReactNode }) => {
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
+  return (
+    <main 
+      className={`flex-1 pt-32 p-8 transition-all duration-300 ${
+        isCollapsed ? "pl-16" : "pl-[240px]"
+      }`}
+    >
+      {children}
+    </main>
+  );
+};
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(() => supabase.auth.getUser());
@@ -35,9 +50,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <VerticalNav selectedIdentity={selectedIdentity} />
 
         {/* Main Content */}
-        <main className="flex-1 pt-32 pl-[240px] p-8 transition-all duration-300">
-          {children}
-        </main>
+        <DashboardContent>{children}</DashboardContent>
 
         {/* Footer */}
         <Footer />
