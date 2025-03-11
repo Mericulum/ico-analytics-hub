@@ -1,5 +1,5 @@
 
-import { Calculator, BarChart2, Newspaper, Crown, Gamepad2, BookOpen, LineChart, BarChart, ShieldCheck, FileText } from "lucide-react";
+import { Calculator, BarChart2, Newspaper, Crown, Gamepad2, BookOpen, LineChart, BarChart, ShieldCheck, FileText, Search, Globe } from "lucide-react";
 
 export const mainMenuItems = [
   { icon: BookOpen, label: "Research", path: "/research" },
