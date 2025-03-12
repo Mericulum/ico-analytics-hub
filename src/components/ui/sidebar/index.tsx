@@ -1,4 +1,5 @@
 
+// Export all sidebar components and context
 import {
   Sidebar,
   SidebarContent,
