@@ -56,13 +56,15 @@ const RoadmapSection = () => {
       <div className="absolute -left-1/4 -top-1/4 w-1/2 h-1/2 bg-crypto-blue rounded-full blur-[120px] opacity-30"></div>
       <div className="absolute right-0 bottom-0 w-1/3 h-1/3 bg-crypto-green rounded-full blur-[100px] opacity-20"></div>
       
-      <style jsx>{`
-        @keyframes height-change {
-          0% { height: var(--height); }
-          50% { height: calc(var(--height) * 1.3); }
-          100% { height: var(--height); }
-        }
-      `}</style>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes height-change {
+            0% { height: var(--height); }
+            50% { height: calc(var(--height) * 1.3); }
+            100% { height: var(--height); }
+          }
+        `
+      }} />
       
       <div className="container max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
