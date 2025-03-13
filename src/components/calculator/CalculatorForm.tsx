@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Calculator, TrendingUp } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -38,7 +39,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
           <FormField control={form.control} name="initialInvestment" render={({
           field
         }) => <FormItem className="bg-slate-900">
-                <FormLabel>Initial Investment (USD)</FormLabel>
+                <FormLabel className="text-white">Initial Investment (USD)</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="1000" icon={<span className="text-muted-foreground">$</span>} {...field} />
                 </FormControl>
@@ -47,7 +48,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
           <FormField control={form.control} name="cryptocurrency" render={({
           field
         }) => <FormItem>
-                <FormLabel>Cryptocurrency</FormLabel>
+                <FormLabel className="text-white">Cryptocurrency</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -70,7 +71,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
           <FormField control={form.control} name="duration" render={({
           field
         }) => <FormItem>
-                <FormLabel>Investment Duration</FormLabel>
+                <FormLabel className="text-white">Investment Duration</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -87,7 +88,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
           <FormField control={form.control} name="recurringInvestment" render={({
           field
         }) => <FormItem>
-                <FormLabel>Monthly Contribution (USD)</FormLabel>
+                <FormLabel className="text-white">Monthly Contribution (USD)</FormLabel>
                 <FormControl>
                   <Input type="number" placeholder="0" icon={<span className="text-muted-foreground">$</span>} {...field} />
                 </FormControl>
@@ -96,7 +97,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
           <FormField control={form.control} name="growthRate" render={({
           field
         }) => <FormItem>
-                <FormLabel>Growth Assumption</FormLabel>
+                <FormLabel className="text-white">Growth Assumption</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
@@ -117,7 +118,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
                 <FormControl>
                   <input type="checkbox" className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary" checked={field.value} onChange={field.onChange} />
                 </FormControl>
-                <FormLabel className="text-sm font-normal">
+                <FormLabel className="text-sm font-normal text-white">
                   Adjust for inflation
                 </FormLabel>
               </FormItem>} />
