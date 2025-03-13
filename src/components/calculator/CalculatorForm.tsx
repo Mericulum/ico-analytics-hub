@@ -74,7 +74,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                         <Input
                           placeholder="Search cryptocurrencies..."
-                          className="pl-8"
+                          className="pl-8 text-white"
                           value={cryptoSearch}
                           onChange={(e) => setCryptoSearch(e.target.value)}
                         />
