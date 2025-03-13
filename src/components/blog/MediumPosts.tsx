@@ -21,6 +21,19 @@ interface MediumPostsProps {
 const MediumPosts = ({ posts }: MediumPostsProps) => {
   const [selectedPost, setSelectedPost] = useState<MediumPost | null>(null);
 
+  const getPostImage = (postId: string) => {
+    switch(postId) {
+      case "1":
+        return "https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166113.jpg";
+      case "2":
+        return "https://img.freepik.com/free-photo/abstract-digital-grid-blue-background_53876-97647.jpg";
+      case "3":
+        return "https://img.freepik.com/free-vector/gradient-network-connection-background_23-2149011060.jpg";
+      default:
+        return "https://img.freepik.com/free-vector/gradient-cryptocurrency-concept_23-2149166914.jpg";
+    }
+  };
+
   if (selectedPost) {
     return (
       <div className="space-y-6">
@@ -36,7 +49,7 @@ const MediumPosts = ({ posts }: MediumPostsProps) => {
         <div className="bg-crypto-dark border border-crypto-blue rounded-lg overflow-hidden">
           <div className="aspect-[21/9] overflow-hidden">
             <img 
-              src="https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166113.jpg"
+              src={getPostImage(selectedPost.id)}
               alt={selectedPost.title}
               className="w-full h-full object-cover"
             />
@@ -113,7 +126,7 @@ const MediumPosts = ({ posts }: MediumPostsProps) => {
           <div className="relative">
             <div className="aspect-video w-full overflow-hidden">
               <img 
-                src="https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166113.jpg"
+                src={getPostImage(post.id)}
                 alt={post.title}
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               />
