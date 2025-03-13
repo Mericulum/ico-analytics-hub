@@ -45,8 +45,6 @@ const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
     }
   };
 
-  const showUpgradeButton = user && subscriptionTier && subscriptionTier !== 'advanced' && !isLoading;
-
   const handleIdentitySelect = (value: string) => {
     setSelectedIdentity(value);
     onIdentityChange(value);
@@ -58,7 +56,7 @@ const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
   };
 
   return (
-    <header className="w-full bg-black border-b border-crypto-gray">
+    <header className="w-full bg-[#0A1A21] border-b border-crypto-gray shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center h-20">
           {/* Logo Section */}
@@ -87,13 +85,13 @@ const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
                 </div>
               </SelectTrigger>
               <SelectContent className="bg-crypto-dark border-crypto-blue/20 text-white z-50">
-                <SelectItem value="trader" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer">
+                <SelectItem value="trader" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer text-white">
                   Trader
                 </SelectItem>
-                <SelectItem value="investor" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer">
+                <SelectItem value="investor" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer text-white">
                   Investor
                 </SelectItem>
-                <SelectItem value="learner" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer">
+                <SelectItem value="learner" className="hover:text-crypto-blue focus:text-crypto-blue cursor-pointer text-white">
                   Learning Bird
                 </SelectItem>
               </SelectContent>
@@ -102,7 +100,7 @@ const TopNav = ({ user: initialUser, onIdentityChange }: TopNavProps) => {
 
           {/* Profile Section */}
           <div className="flex items-center gap-4">
-            <UpgradeButton show={showUpgradeButton} />
+            <UpgradeButton show={user && subscriptionTier && subscriptionTier !== 'advanced' && !isLoading} />
             <ProfileMenu 
               user={user} 
               subscriptionTier={subscriptionTier}

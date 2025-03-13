@@ -13,7 +13,7 @@ const DashboardContent = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main 
-      className={`flex-1 pt-32 p-8 transition-all duration-300 ${
+      className={`flex-1 pt-24 p-8 transition-all duration-300 ${
         isCollapsed ? "pl-16" : "pl-[240px]"
       }`}
     >
@@ -40,9 +40,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex flex-col w-full bg-black text-white">
+      <div className="min-h-screen flex flex-col w-full bg-[#143442] text-white">
         {/* Top Navigation */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#143442] to-[#0A1A21] backdrop-blur-lg">
+        <div className="fixed top-0 left-0 right-0 z-50 bg-[#0A1A21] backdrop-blur-lg">
           <TopNav user={user} onIdentityChange={handleIdentityChange} />
         </div>
 
