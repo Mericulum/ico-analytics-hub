@@ -36,7 +36,7 @@ const MediumPosts = ({ posts }: MediumPostsProps) => {
         <div className="bg-crypto-dark border border-crypto-blue rounded-lg overflow-hidden">
           <div className="aspect-[21/9] overflow-hidden">
             <img 
-              src={selectedPost.imageUrl} 
+              src="https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166113.jpg"
               alt={selectedPost.title}
               className="w-full h-full object-cover"
             />
@@ -113,7 +113,7 @@ const MediumPosts = ({ posts }: MediumPostsProps) => {
           <div className="relative">
             <div className="aspect-video w-full overflow-hidden">
               <img 
-                src={post.imageUrl} 
+                src="https://img.freepik.com/free-vector/gradient-stock-market-concept_23-2149166113.jpg"
                 alt={post.title}
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
               />
