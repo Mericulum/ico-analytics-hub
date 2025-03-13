@@ -114,6 +114,14 @@ const PriceGraph: React.FC<PriceGraphProps> = ({
     }
   };
 
+  // Create a tooltip formatter function
+  const formatTooltip = (value: any, name: any, props: any) => {
+    return [
+      `$${Number(value).toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
+      props.payload && props.payload.isProjection ? "Projected Value" : "Value"
+    ];
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -154,16 +162,23 @@ const PriceGraph: React.FC<PriceGraphProps> = ({
                 width={60}
                 tickFormatter={(value) => `$${value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value}`}
               />
-              <ChartTooltip 
-                content={(props) => (
-                  <ChartTooltipContent
-                    {...props}
-                    formatter={(value, name) => [
-                      `$${Number(value).toLocaleString(undefined, { maximumFractionDigits: 2 })}`,
-                      props.payload && props.payload[0]?.payload?.isProjection ? "Projected Value" : "Value"
-                    ]}
-                  />
-                )}
+              <Tooltip 
+                content={({ active, payload, label }) => {
+                  if (!active || !payload || !payload.length) return null;
+                  
+                  const data = payload[0].payload;
+                  return (
+                    <div className="bg-black/80 border border-crypto-gray/30 p-2 rounded">
+                      <p className="text-xs text-white">{label}</p>
+                      <p className="text-sm font-semibold text-white">
+                        ${Number(data.value).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                      </p>
+                      <p className="text-xs text-crypto-green">
+                        {data.isProjection ? "Projected Value" : "Historical Value"}
+                      </p>
+                    </div>
+                  );
+                }}
               />
               <Line 
                 type="monotone" 

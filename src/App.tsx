@@ -18,6 +18,7 @@ const Checkout = lazy(() => import("@/pages/Checkout"));
 const ProjectDetails = lazy(() => import("@/pages/ProjectDetails"));
 const ICODashboard = lazy(() => import("@/pages/ICODashboard"));
 const ContractScanner = lazy(() => import("@/pages/ContractScanner"));
+const Calculator = lazy(() => import("@/pages/Calculator"));
 
 const LoadingFallback = () => (
   <Card className="p-6 m-4">
@@ -55,6 +56,7 @@ function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/ico-dashboard" element={<ICODashboard />} />
             <Route path="/scanner" element={<ContractScanner />} />
+            <Route path="/calculator" element={<Calculator />} />
           </Routes>
         </Suspense>
         <Toaster />
