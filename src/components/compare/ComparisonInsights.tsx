@@ -1,137 +1,117 @@
 
-import React from "react";
+import React from 'react';
 import { Card } from "@/components/ui/card";
 import { ComparisonConfig } from "@/types/compare";
-import { getCryptoById } from './utils/cryptoData';
+import { 
+  getCryptoById,
+  getMetricById,
+  getMetricValue,
+  formatMetricValue 
+} from './utils/cryptoData';
 
 interface ComparisonInsightsProps {
   config: ComparisonConfig;
 }
 
 const ComparisonInsights: React.FC<ComparisonInsightsProps> = ({ config }) => {
-  const { cryptos: cryptoIds } = config;
-  const cryptos = cryptoIds.map(id => getCryptoById(id)).filter(Boolean);
+  const { cryptos: cryptoIds, metrics: metricIds } = config;
   
-  if (cryptos.length === 0) {
+  // Get full data objects
+  const cryptos = cryptoIds.map(id => getCryptoById(id)).filter(Boolean);
+  const metrics = metricIds.map(id => getMetricById(id)).filter(Boolean);
+  
+  // No cryptos or metrics selected
+  if (cryptos.length === 0 || metrics.length === 0) {
     return (
       <div className="text-center py-10 text-muted-foreground">
-        Please select at least one cryptocurrency to generate insights
+        {cryptos.length === 0 
+          ? "Please select at least one cryptocurrency to compare"
+          : "Please select at least one metric to compare"}
       </div>
     );
   }
-
-  return (
-    <div className="space-y-4">
-      <Card className="p-6 border-crypto-gray bg-black/20">
-        <h3 className="text-lg font-medium mb-4">AI-Generated Insights</h3>
-        <p className="text-muted-foreground mb-4">
-          Here are some AI-generated insights based on your selected cryptocurrencies:
-        </p>
-        
-        <div className="space-y-4">
-          {cryptos.map(crypto => crypto && (
-            <div key={crypto.id} className="space-y-2">
-              <h4 className="font-medium" style={{ color: crypto.color }}>
-                {crypto.name} ({crypto.symbol})
-              </h4>
-              <p className="text-sm">{crypto.description}</p>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                <div>
-                  <h5 className="text-xs text-muted-foreground mb-1">Strengths</h5>
-                  <ul className="list-disc pl-4 text-sm space-y-1">
-                    {crypto.category === 'Layer 1' && (
-                      <>
-                        <li>Strong foundation for dApps development</li>
-                        <li>High scalability potential</li>
-                      </>
-                    )}
-                    {crypto.category === 'DeFi' && (
-                      <>
-                        <li>Innovative financial applications</li>
-                        <li>Growing ecosystem of services</li>
-                      </>
-                    )}
-                    {crypto.category === 'Store of Value' && (
-                      <>
-                        <li>Proven track record of stability</li>
-                        <li>Strong network effects</li>
-                      </>
-                    )}
-                    {crypto.category === 'Memecoin' && (
-                      <>
-                        <li>Strong community engagement</li>
-                        <li>Viral marketing potential</li>
-                      </>
-                    )}
-                    {crypto.technicalData.scalability > 7 && (
-                      <li>Excellent scalability metrics</li>
-                    )}
-                    {crypto.riskData.decentralizationLevel > 7 && (
-                      <li>Highly decentralized network</li>
-                    )}
-                  </ul>
-                </div>
-                
-                <div>
-                  <h5 className="text-xs text-muted-foreground mb-1">Challenges</h5>
-                  <ul className="list-disc pl-4 text-sm space-y-1">
-                    {crypto.technicalData.energyConsumption > 50 && (
-                      <li>High energy consumption</li>
-                    )}
-                    {crypto.riskData.volatility > 7 && (
-                      <li>High price volatility</li>
-                    )}
-                    {crypto.riskData.regulatoryCompliance < 5 && (
-                      <li>Potential regulatory challenges</li>
-                    )}
-                    {crypto.technicalData.scalability < 5 && (
-                      <li>Scalability limitations</li>
-                    )}
-                    {crypto.category === 'Memecoin' && (
-                      <li>Limited technical utility</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
+  
+  // Generate simple insights
+  const insights = [];
+  
+  // Best performer per metric
+  metrics.forEach(metric => {
+    if (!metric) return;
+    
+    let bestCrypto = null;
+    let bestValue = null;
+    
+    cryptos.forEach(crypto => {
+      if (!crypto) return;
       
-      <Card className="p-6 border-crypto-gray bg-black/20">
-        <h3 className="text-lg font-medium mb-4">Market Trend Analysis</h3>
-        <p className="text-sm">
-          Based on the selected cryptocurrencies, here are some market trends to consider:
+      const value = getMetricValue(crypto, metric.id);
+      
+      if (bestValue === null) {
+        bestCrypto = crypto;
+        bestValue = value;
+      } else {
+        // For metrics where lower is better, we need to invert the comparison
+        const isBetter = metric.colorScale === 'lower-better'
+          ? value < bestValue
+          : value > bestValue;
+          
+        if (isBetter) {
+          bestCrypto = crypto;
+          bestValue = value;
+        }
+      }
+    });
+    
+    if (bestCrypto && bestValue !== null) {
+      insights.push({
+        type: 'best-performer',
+        metric,
+        crypto: bestCrypto,
+        value: bestValue,
+        formattedValue: formatMetricValue(metric.id, bestValue)
+      });
+    }
+  });
+  
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="text-lg font-medium mb-2">AI-Generated Insights</h3>
+        <p className="text-sm text-muted-foreground">
+          Automatically generated insights based on your selected cryptocurrencies and metrics
         </p>
+      </div>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {insights.map((insight, index) => (
+          <Card key={index} className="p-4 border-crypto-gray bg-crypto-dark/60">
+            <h4 className="font-medium flex items-center gap-2">
+              <span 
+                className="w-3 h-3 rounded-full" 
+                style={{ backgroundColor: insight.crypto.color }}
+              ></span>
+              <span>{insight.crypto.name}</span>
+              <span className="text-muted-foreground">|</span>
+              <span>{insight.metric.name}</span>
+            </h4>
+            <p className="mt-2 text-sm">
+              {insight.crypto.name} has the 
+              {insight.metric.colorScale === 'lower-better' ? ' lowest ' : ' highest '}
+              {insight.metric.name.toLowerCase()} at {insight.formattedValue}
+              {insight.metric.colorScale !== 'neutral' ? 
+                `, which is generally considered ${insight.metric.colorScale === 'higher-better' ? 'better' : 'more efficient'}` : 
+                ''}
+              .
+            </p>
+          </Card>
+        ))}
         
-        <ul className="list-disc pl-4 mt-4 space-y-2 text-sm">
-          <li>
-            <span className="font-medium">Adoption Trajectory:</span> {' '}
-            {cryptos.some(c => c?.adoptionData.developerActivity > 7) 
-              ? 'Strong developer activity suggests growing ecosystem adoption.' 
-              : 'Developer activity appears moderate, which may impact future growth.'}
-          </li>
-          <li>
-            <span className="font-medium">Institutional Interest:</span> {' '}
-            {cryptos.some(c => c?.adoptionData.institutionalInterest > 7) 
-              ? 'High institutional interest indicates mainstream financial adoption.' 
-              : 'Limited institutional backing may result in higher volatility.'}
-          </li>
-          <li>
-            <span className="font-medium">Regulatory Landscape:</span> {' '}
-            {cryptos.some(c => c?.riskData.regulatoryCompliance < 5) 
-              ? 'Potential regulatory challenges could impact short-term performance.' 
-              : 'Strong regulatory compliance positioning for stability.'}
-          </li>
-          <li>
-            <span className="font-medium">Sustainability Outlook:</span> {' '}
-            {cryptos.some(c => c?.sustainabilityData.energyEfficiency > 7) 
-              ? 'Energy-efficient protocols align with growing ESG concerns.' 
-              : 'Energy consumption profiles may face increased scrutiny.'}
-          </li>
-        </ul>
-      </Card>
+        {insights.length === 0 && (
+          <div className="col-span-full text-center py-4 text-muted-foreground">
+            Not enough data to generate meaningful insights. Try selecting more metrics.
+          </div>
+        )}
+      </div>
     </div>
   );
 };
