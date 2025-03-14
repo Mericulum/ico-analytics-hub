@@ -1,4 +1,3 @@
-
 export interface Cryptocurrency {
   id: string;
   name: string;
@@ -23,7 +22,8 @@ export type CryptoCategory =
   | 'Exchange Token' 
   | 'Store of Value' 
   | 'Stablecoin'
-  | 'Privacy Coin';
+  | 'Privacy Coin'
+  | 'Payment Coin';
 
 export interface MarketData {
   price: number;

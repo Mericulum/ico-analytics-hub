@@ -1,4 +1,3 @@
-
 import { Cryptocurrency, CryptoCategory, ComparisonMetric, UserGoal, ComparisonConfig } from "@/types/compare";
 
 // Mock data for cryptocurrencies
@@ -219,7 +218,7 @@ export const allCryptos: Cryptocurrency[] = [
     id: 'ripple',
     name: 'Ripple',
     symbol: 'XRP',
-    category: 'Payment Protocol',
+    category: 'Payment Coin',
     logo: '/logos/xrp.svg',
     color: '#23292F',
     marketData: {
@@ -262,7 +261,7 @@ export const allCryptos: Cryptocurrency[] = [
     },
     sustainabilityData: {
       energyEfficiency: 7,
-      carbonFootprint: 20000,
+      carbonFootprint: 2000,
       ecoFriendlyInitiatives: 5,
       renewableEnergyUse: 40,
     },
@@ -535,13 +534,46 @@ export const allCryptos: Cryptocurrency[] = [
   },
 ];
 
+export const defaultComparisonConfig: ComparisonConfig = {
+  cryptos: ['bitcoin', 'ethereum'],
+  metrics: ['price', 'marketCap', 'transactionSpeed', 'energyEfficiency'],
+};
+
 export interface CryptoGroup {
   category: CryptoCategory;
+  name: string;
+  color: string;
   cryptos: Cryptocurrency[];
 }
 
 // Function to get all categories with their cryptos
 export const getCategoriesWithCryptos = (): CryptoGroup[] => {
+  const categoryColors: Record<string, string> = {
+    'Layer 1': '#9945FF',
+    'Smart Contract': '#627EEA',
+    'DeFi': '#2775CA',
+    'Memecoin': '#C2A633',
+    'NFT': '#E91E63',
+    'Exchange Token': '#F0B90B',
+    'Store of Value': '#F7931A',
+    'Stablecoin': '#007BFF',
+    'Privacy Coin': '#4CAF50',
+    'Payment Coin': '#23292F'
+  };
+  
+  const categoryNames: Record<string, string> = {
+    'Layer 1': 'Layer 1 Blockchains',
+    'Smart Contract': 'Smart Contract Platforms',
+    'DeFi': 'Decentralized Finance',
+    'Memecoin': 'Memecoins',
+    'NFT': 'NFT Tokens',
+    'Exchange Token': 'Exchange Tokens',
+    'Store of Value': 'Store of Value',
+    'Stablecoin': 'Stablecoins',
+    'Privacy Coin': 'Privacy Coins',
+    'Payment Coin': 'Payment Networks'
+  };
+  
   const categories: { [key: string]: Cryptocurrency[] } = {};
   
   allCryptos.forEach(crypto => {
@@ -553,8 +585,31 @@ export const getCategoriesWithCryptos = (): CryptoGroup[] => {
   
   return Object.entries(categories).map(([category, cryptos]) => ({
     category: category as CryptoCategory,
+    name: categoryNames[category] || category,
+    color: categoryColors[category] || '#777777',
     cryptos
   }));
+};
+
+// Helper function for getting suggestions based on user goal
+export const getSuggestionsForUserGoal = (goalId: string): string => {
+  const goal = userGoals.find(g => g.id === goalId);
+  if (!goal) return "";
+  
+  switch(goalId) {
+    case 'long-term-investment':
+      return "These metrics will help you evaluate cryptocurrencies for long-term investment potential.";
+    case 'high-growth-potential':
+      return "These metrics focus on identifying cryptocurrencies with strong growth potential.";
+    case 'sustainable-crypto':
+      return "These metrics prioritize environmentally sustainable cryptocurrencies.";
+    case 'diversification':
+      return "These metrics will help you balance your portfolio with diverse crypto assets.";
+    case 'privacy-focused':
+      return "These metrics focus on privacy features and security aspects.";
+    default:
+      return `Metrics selected for ${goal.name}`;
+  }
 };
 
 // All available metrics

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
@@ -29,10 +28,8 @@ const CryptoSelector: React.FC<CryptoSelectorProps> = ({ selectedCryptos, onChan
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const [isSelectionOpen, setIsSelectionOpen] = useState(true);
   
-  // Get all categories with their cryptocurrencies
   const categoriesWithCryptos = getCategoriesWithCryptos();
   
-  // Filter cryptos based on search query
   const filteredCategories = searchQuery.trim() === '' 
     ? categoriesWithCryptos 
     : categoriesWithCryptos.map(category => ({
@@ -43,7 +40,6 @@ const CryptoSelector: React.FC<CryptoSelectorProps> = ({ selectedCryptos, onChan
         )
       })).filter(category => category.cryptos.length > 0);
   
-  // Handle crypto selection
   const handleCryptoToggle = (cryptoId: string) => {
     if (selectedCryptos.includes(cryptoId)) {
       onChange(selectedCryptos.filter(id => id !== cryptoId));
@@ -52,7 +48,6 @@ const CryptoSelector: React.FC<CryptoSelectorProps> = ({ selectedCryptos, onChan
     }
   };
   
-  // Handle category expansion
   const toggleCategoryExpansion = (category: string) => {
     if (expandedCategories.includes(category)) {
       setExpandedCategories(expandedCategories.filter(cat => cat !== category));
@@ -61,17 +56,14 @@ const CryptoSelector: React.FC<CryptoSelectorProps> = ({ selectedCryptos, onChan
     }
   };
   
-  // Clear all selections
   const clearSelections = () => {
     onChange([]);
   };
   
-  // Get crypto details for the selected chips
   const selectedCryptoDetails = selectedCryptos.map(id => getCryptoById(id)).filter(Boolean);
 
   return (
     <div className="space-y-4">
-      {/* Selected cryptos chips */}
       <div className="flex flex-wrap gap-2 mb-2">
         {selectedCryptoDetails.map((crypto) => crypto && (
           <Badge 
