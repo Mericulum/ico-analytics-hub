@@ -1,3 +1,4 @@
+
 import { Cryptocurrency, CryptoCategory, ComparisonMetric, UserGoal, ComparisonConfig } from "@/types/compare";
 
 // Mock data for cryptocurrencies
@@ -856,4 +857,16 @@ export const getMetricValue = (crypto: Cryptocurrency, metricId: string | undefi
     case 'risk':
       return crypto.riskData[metricId as keyof typeof crypto.riskData];
     case 'sustainability':
-      return crypto.sustainabilityData[metricId
+      return crypto.sustainabilityData[metricId as keyof typeof crypto.sustainabilityData];
+    default:
+      return null;
+  }
+};
+
+// Function to format metric value according to its formatter
+export const formatMetricValue = (metricId: string, value: any): string => {
+  const metric = getMetricById(metricId);
+  if (!metric || value === null || value === undefined) return 'N/A';
+  
+  return metric.formatter(value);
+};
