@@ -23,26 +23,30 @@ const PriceGraphChart: React.FC<PriceGraphChartProps> = ({
   chartConfig
 }) => {
   return (
-    <div className="h-[300px] w-full">
+    <div className="h-[300px] w-full mt-4">
       <ChartContainer 
         config={chartConfig}
-        className="rounded-lg overflow-hidden border-none"
+        className="rounded-lg overflow-hidden border-none h-full"
       >
         <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 10, right: 30, left: 30, bottom: 10 }}>
+          <LineChart 
+            data={chartData} 
+            margin={{ top: 5, right: 10, left: 0, bottom: 5 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke="#2A4B57" />
             <XAxis 
               dataKey="month" 
               stroke="#4BA3CC" 
-              tick={{ fill: "#6FD5FF", fontSize: 12 }}
-              tickMargin={10}
+              tick={{ fill: "#6FD5FF", fontSize: 10 }}
+              tickMargin={5}
+              interval="preserveStartEnd"
             />
             <YAxis 
               stroke="#4BA3CC" 
-              tick={{ fill: "#6FD5FF", fontSize: 12 }}
-              tickMargin={10}
-              width={60}
-              tickFormatter={(value) => `$${value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value}`}
+              tick={{ fill: "#6FD5FF", fontSize: 10 }}
+              tickMargin={5}
+              width={40}
+              tickFormatter={(value) => `$${value >= 1000 ? `${(value / 1000).toFixed(0)}k` : value}`}
             />
             <Tooltip content={props => <PriceGraphTooltip {...props} />} />
             <Line 
@@ -53,14 +57,14 @@ const PriceGraphChart: React.FC<PriceGraphChartProps> = ({
               dot={{ 
                 fill: chartConfig.historical.color, 
                 strokeWidth: 1, 
-                r: 3, 
+                r: 2, 
                 stroke: chartConfig.historical.color 
               }}
               activeDot={{ 
                 fill: "#FFFFFF", 
                 stroke: chartConfig.historical.color, 
                 strokeWidth: 2, 
-                r: 5 
+                r: 4 
               }}
               name="historical"
             />
@@ -74,14 +78,14 @@ const PriceGraphChart: React.FC<PriceGraphChartProps> = ({
               dot={{ 
                 fill: "#4BA3CC", 
                 strokeWidth: 1, 
-                r: 3, 
+                r: 2, 
                 stroke: "#4BA3CC" 
               }}
               activeDot={{ 
                 fill: "#FFFFFF", 
                 stroke: "#4BA3CC", 
                 strokeWidth: 2, 
-                r: 5 
+                r: 4 
               }}
             />
           </LineChart>
