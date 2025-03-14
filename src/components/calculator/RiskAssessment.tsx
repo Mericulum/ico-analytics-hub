@@ -1,11 +1,14 @@
+
 import React from "react";
 import { Progress } from "@/components/ui/progress";
-import { ShieldCheck, ShieldAlert, ShieldX, Info } from "lucide-react";
+import { ShieldCheck, ShieldAlert, ShieldX, Info, Scale, Globe } from "lucide-react";
+
 interface RiskAssessmentProps {
   riskLevel: string;
   riskScore: number;
   riskFactors: string[];
 }
+
 const RiskAssessment: React.FC<RiskAssessmentProps> = ({
   riskLevel,
   riskScore,
@@ -28,6 +31,15 @@ const RiskAssessment: React.FC<RiskAssessmentProps> = ({
     label: "High",
     value: 100
   }];
+
+  // Policy and legal risk factors
+  const policyRiskFactors = [
+    "Trump administration policy shifts could impact cryptocurrency regulations.",
+    "SEC enforcement actions may affect token classification and trading.",
+    "International regulatory divergence creates compliance challenges.",
+    "EU's MiCA regulation introduces new compliance requirements for global operators."
+  ];
+
   return <div>
       <div className="flex items-center mb-4">
         <RiskIcon className={`w-5 h-5 mr-2 ${riskLevel === "Low" ? "text-green-500" : riskLevel === "Medium" ? "text-yellow-500" : "text-red-500"}`} />
@@ -69,10 +81,11 @@ const RiskAssessment: React.FC<RiskAssessmentProps> = ({
           </div>
         </div>
         
+        {/* Market Risk Factors */}
         <div className="mt-6">
           <h4 className="text-sm font-medium flex items-center mb-2 text-zinc-50">
             <Info className="w-4 h-4 mr-1" />
-            Risk Factors
+            Market Risk Factors
           </h4>
           <ul className="space-y-2">
             {riskFactors.map((factor, index) => <li key={index} className="text-sm text-muted-foreground flex items-start">
@@ -82,12 +95,38 @@ const RiskAssessment: React.FC<RiskAssessmentProps> = ({
           </ul>
         </div>
         
+        {/* Policy & Legal Risk Factors */}
+        <div className="mt-6">
+          <h4 className="text-sm font-medium flex items-center mb-2 text-zinc-50">
+            <Scale className="w-4 h-4 mr-1" />
+            Policy & Legal Risk Factors
+          </h4>
+          <ul className="space-y-2">
+            {policyRiskFactors.map((factor, index) => <li key={index} className="text-sm text-muted-foreground flex items-start">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-crypto-gray mt-1.5 mr-2"></span>
+                {factor}
+              </li>)}
+          </ul>
+        </div>
+        
+        {/* Global Regulatory Considerations */}
+        <div className="mt-6">
+          <h4 className="text-sm font-medium flex items-center mb-2 text-zinc-50">
+            <Globe className="w-4 h-4 mr-1" />
+            Global Regulatory Impact
+          </h4>
+          <p className="text-sm text-muted-foreground mb-2">
+            Political shifts in the US, including Trump administration policies, may significantly impact cryptocurrency regulations and market sentiment. Emerging regulatory frameworks across different jurisdictions create varying levels of compliance requirements.
+          </p>
+        </div>
+        
         <div className="mt-6 p-4 bg-crypto-dark/30 rounded-lg border border-crypto-gray/20">
           <p className="text-sm text-muted-foreground">
-            <strong className="text-white">Disclaimer:</strong> This risk assessment is based on historical data and current market trends. Cryptocurrency investments are highly speculative and past performance is not indicative of future results. Always do your own research before investing.
+            <strong className="text-white">Disclaimer:</strong> This risk assessment is based on historical data, current market trends, and regulatory landscapes. Political and regulatory changes, including those from the Trump administration or other governments, may significantly impact cryptocurrency investments. Always do your own research before investing.
           </p>
         </div>
       </div>
     </div>;
 };
+
 export default RiskAssessment;
