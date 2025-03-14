@@ -19,6 +19,7 @@ const ProjectDetails = lazy(() => import("@/pages/ProjectDetails"));
 const ICODashboard = lazy(() => import("@/pages/ICODashboard"));
 const ContractScanner = lazy(() => import("@/pages/ContractScanner"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
+const Compare = lazy(() => import("@/pages/Compare"));
 
 const LoadingFallback = () => (
   <Card className="p-6 m-4">
@@ -57,6 +58,7 @@ function App() {
             <Route path="/ico-dashboard" element={<ICODashboard />} />
             <Route path="/scanner" element={<ContractScanner />} />
             <Route path="/calculator" element={<Calculator />} />
+            <Route path="/compare" element={<Compare />} />
           </Routes>
         </Suspense>
         <Toaster />
