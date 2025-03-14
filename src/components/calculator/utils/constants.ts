@@ -1,4 +1,3 @@
-
 export const cryptocurrencies = [
   { name: "Bitcoin", symbol: "BTC", color: "#F7931A" },
   { name: "Ethereum", symbol: "ETH", color: "#627EEA" },
@@ -29,10 +28,10 @@ export const cryptocurrencies = [
   { name: "Decentraland", symbol: "MANA", color: "#FF2D55" },
   { name: "The Sandbox", symbol: "SAND", color: "#00AEFF" },
   { name: "Axie Infinity", symbol: "AXS", color: "#0055D5" },
-  { name: "Shiba Inu", symbol: "SHIB", color: "#F00500" }
+  { name: "Shiba Inu", symbol: "SHIB", color: "#F00500" },
+  { name: "0x", symbol: "ZRX", color: "#231815" }
 ];
 
-// We also need to update the growth rates for the new cryptocurrencies
 export const growthRates = {
   conservative: {
     BTC: 15,
@@ -64,7 +63,8 @@ export const growthRates = {
     MANA: 20,
     SAND: 19,
     AXS: 20,
-    SHIB: 7
+    SHIB: 7,
+    ZRX: 13
   },
   moderate: {
     BTC: 40,
@@ -96,7 +96,8 @@ export const growthRates = {
     MANA: 55,
     SAND: 52,
     AXS: 60,
-    SHIB: 22
+    SHIB: 22,
+    ZRX: 36
   },
   aggressive: {
     BTC: 80,
@@ -128,11 +129,11 @@ export const growthRates = {
     MANA: 130,
     SAND: 125,
     AXS: 140,
-    SHIB: 55
-  },
+    SHIB: 55,
+    ZRX: 80
+  }
 };
 
-// Update volatility factors for the new cryptocurrencies
 export const volatilityFactors = {
   BTC: 0.7,
   ETH: 0.8,
@@ -163,5 +164,6 @@ export const volatilityFactors = {
   MANA: 0.9,
   SAND: 0.9,
   AXS: 0.95,
-  SHIB: 1.0
+  SHIB: 1.0,
+  ZRX: 0.8
 };
