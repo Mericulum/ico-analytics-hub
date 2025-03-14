@@ -108,7 +108,7 @@ const ComparisonHeader: React.FC<ComparisonHeaderProps> = ({
             <SelectValue placeholder="Select your investment goal" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">No specific goal</SelectItem>
+            <SelectItem value="no-goal">No specific goal</SelectItem>
             {userGoals.map((goal) => (
               <SelectItem key={goal.id} value={goal.id}>
                 {goal.name}

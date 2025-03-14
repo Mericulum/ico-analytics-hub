@@ -2,6 +2,7 @@
 import React from "react";
 import CryptoComparisonTool from "@/components/compare/CryptoComparisonTool";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "sonner";
 
 const Compare = () => {
   return (
@@ -9,6 +10,7 @@ const Compare = () => {
       <TooltipProvider>
         <CryptoComparisonTool />
       </TooltipProvider>
+      <Toaster />
     </div>
   );
 };
