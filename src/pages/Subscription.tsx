@@ -1,3 +1,4 @@
+
 import React from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import BasicSignupDialog from "@/components/subscription/BasicSignupDialog";
@@ -10,6 +11,7 @@ import { useSubscriptionPage } from "@/hooks/useSubscriptionPage";
 const SubscriptionPage = () => {
   const {
     selectedTier,
+    setSelectedTier,
     showBasicSignupDialog,
     setShowBasicSignupDialog,
     showPremiumSignupDialog,

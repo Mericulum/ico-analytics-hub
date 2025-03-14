@@ -94,6 +94,7 @@ export const useSubscriptionPage = () => {
 
   return {
     selectedTier,
+    setSelectedTier,
     showBasicSignupDialog,
     setShowBasicSignupDialog,
     showPremiumSignupDialog,
