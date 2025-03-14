@@ -5,6 +5,7 @@ import RoadmapSection from "./RoadmapSection";
 import CTASection from "./CTASection";
 import OverviewStats from "../overview/OverviewStats";
 import CryptoExplanationSection from "./CryptoExplanationSection";
+import ToolsPromotionSection from "./ToolsPromotionSection";
 
 const IntroductionSection = () => {
   return (
@@ -16,6 +17,7 @@ const IntroductionSection = () => {
       <CryptoExplanationSection />
       <RoadmapSection />
       <FeaturesSection />
+      <ToolsPromotionSection />
       <CTASection />
     </div>
   );
