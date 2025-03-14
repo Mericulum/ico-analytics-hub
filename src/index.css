@@ -139,6 +139,11 @@
     color: white;
   }
   
+  /* Exception for save button text */
+  .crypto-comparison-container button span.text-black {
+    color: black !important;
+  }
+  
   /* Ensure dialog content text is white */
   .DialogContent {
     @apply text-white;
@@ -148,6 +153,11 @@
   [data-theme="default"] .crypto-comparison-container,
   [data-theme="default"] .crypto-comparison-container * {
     color: white;
+  }
+
+  /* But make exception for elements explicitly marked as black */
+  [data-theme="default"] .crypto-comparison-container .text-black {
+    color: black !important;
   }
   
   /* Improve animation effects */

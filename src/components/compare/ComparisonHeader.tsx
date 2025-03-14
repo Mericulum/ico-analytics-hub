@@ -50,7 +50,7 @@ const ComparisonHeader: React.FC<ComparisonHeaderProps> = ({
           <DialogTrigger asChild>
             <Button variant="outline" size="sm" className="gap-1">
               <Save className="w-4 h-4" />
-              <span className="hidden sm:inline text-black">Save</span>
+              <span className="hidden sm:inline text-black !important" style={{ color: 'black' }}>Save</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-md">
