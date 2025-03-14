@@ -102,7 +102,7 @@ const cryptocurrencies: Cryptocurrency[] = [
     },
     sustainabilityData: {
       energyEfficiency: 7,
-      carbonFootprint: 100000,
+      carbonFootprint: 10000,
       ecoFriendlyInitiatives: 7,
       renewableEnergyUse: 60,
     },
@@ -341,6 +341,9 @@ const comparisonMetrics: ComparisonMetric[] = [
     colorScale: 'higher-better',
   },
 ];
+
+// Export comparisonMetrics as metrics for MetricSelector.tsx
+export const metrics = comparisonMetrics;
 
 // Mock data for user goals
 export const userGoals: UserGoal[] = [
