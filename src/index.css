@@ -122,6 +122,34 @@
     @apply text-white hover:bg-crypto-blue/20 !important;
   }
   
+  /* Crypto comparison tool specific styles */
+  .crypto-comparison-container input,
+  .crypto-comparison-container select,
+  .crypto-comparison-container button,
+  .crypto-comparison-container label,
+  .crypto-comparison-container p,
+  .crypto-comparison-container span,
+  .crypto-comparison-container h1,
+  .crypto-comparison-container h2,
+  .crypto-comparison-container h3,
+  .crypto-comparison-container h4,
+  .crypto-comparison-container h5,
+  .crypto-comparison-container h6,
+  .crypto-comparison-container div {
+    color: white;
+  }
+  
+  /* Ensure dialog content text is white */
+  .DialogContent {
+    @apply text-white;
+  }
+  
+  /* Fix for any remaining black text in Comparison Tool */
+  [data-theme="default"] .crypto-comparison-container,
+  [data-theme="default"] .crypto-comparison-container * {
+    color: white;
+  }
+  
   /* Improve animation effects */
   @keyframes fadeIn {
     from { opacity: 0; }

@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 
 const Compare = () => {
   return (
-    <div className="min-h-screen bg-crypto-dark text-white">
+    <div className="min-h-screen bg-crypto-dark text-white crypto-comparison-container">
       <TooltipProvider>
         <CryptoComparisonTool />
       </TooltipProvider>
