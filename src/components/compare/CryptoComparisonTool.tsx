@@ -124,8 +124,9 @@ const CryptoComparisonTool: React.FC = () => {
 
   return (
     <div className="container mx-auto py-8 px-4 md:px-8 relative min-h-screen">
-      {/* Add custom keyframes for animations */}
-      <style jsx>{`
+      {/* Add keyframes for animations using standard style tag */}
+      <style>
+        {`
         @keyframes float {
           0% {
             transform: translateY(0) translateX(0) rotate(0deg);
@@ -141,13 +142,14 @@ const CryptoComparisonTool: React.FC = () => {
           }
         }
         
-        :global(.crypto-particle) {
+        .crypto-particle {
           position: absolute;
           border-radius: 50%;
           pointer-events: none;
           z-index: -5;
         }
-      `}</style>
+      `}
+      </style>
       
       {/* Particles container */}
       <div className="particles-container fixed inset-0 overflow-hidden pointer-events-none"></div>
