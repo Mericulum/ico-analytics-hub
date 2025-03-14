@@ -25,6 +25,13 @@ export type CryptoCategory =
   | 'Privacy Coin'
   | 'Payment Coin';
 
+export interface CryptoGroup {
+  category: string;
+  name: string;
+  color: string;
+  cryptos: Cryptocurrency[];
+}
+
 export interface MarketData {
   price: number;
   marketCap: number;
