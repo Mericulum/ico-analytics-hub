@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import DashboardLayout from "@/components/DashboardLayout";
 import { toast } from "sonner";
@@ -19,41 +18,41 @@ const tiers = [
     highlighted: false,
     features: [
       "Basic market analysis",
-      "Limited API access",
       "Community support",
-      "Basic portfolio tracking"
+      "Basic portfolio tracking",
+      "Limited tools access"
     ]
   },
   {
     name: "Premium",
     tierKey: "premium",
     description: "For serious traders",
-    price: "$49/month",
+    price: "€19/month",
     priceId: "price_premium",
     buttonText: "Upgrade Now",
     highlighted: true,
     features: [
       "Advanced market analysis",
-      "Full API access",
       "Priority support",
       "Advanced portfolio tracking",
-      "Real-time alerts"
+      "Real-time alerts",
+      "Full tools access"
     ]
   },
   {
     name: "Advanced",
     tierKey: "advanced",
     description: "For professional traders",
-    price: "$99/month",
+    price: "€49/month",
     priceId: "price_advanced",
     buttonText: "Go Pro",
     highlighted: false,
     features: [
       "Everything in Premium",
-      "Custom API solutions",
       "Dedicated support",
       "White-label options",
-      "Custom integrations"
+      "Custom integrations",
+      "Strategy consulting"
     ]
   }
 ];
