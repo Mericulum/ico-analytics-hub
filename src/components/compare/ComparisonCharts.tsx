@@ -215,13 +215,7 @@ const ComparisonCharts: React.FC<ComparisonChartsProps> = ({ config }) => {
                 fill="#8884d8"
                 radius={[4, 4, 0, 0]}
               >
-                {chartData.map((entry, index) => (
-                  <Bar 
-                    key={`bar-${index}`}
-                    fill={entry.color} 
-                    radius={[4, 4, 0, 0]}
-                  />
-                ))}
+                {/* Bar components inside a Bar container must NOT specify their own dataKey */}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
