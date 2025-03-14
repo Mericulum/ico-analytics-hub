@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Calculator, TrendingUp, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -9,18 +8,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormValues, formSchema } from "./utils/calculationUtils";
 import { cryptocurrencies } from "./utils/constants";
 import { useState } from "react";
-
 interface CalculatorFormProps {
   onSubmit: (values: FormValues) => void;
   isCalculating: boolean;
 }
-
 const CalculatorForm: React.FC<CalculatorFormProps> = ({
   onSubmit,
   isCalculating
 }) => {
   const [cryptoSearch, setCryptoSearch] = useState("");
-  
+
   // Initialize form with react-hook-form
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -35,12 +32,7 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
   });
 
   // Filter cryptocurrencies based on search term
-  const filteredCryptos = cryptocurrencies.filter(
-    crypto => 
-      crypto.name.toLowerCase().includes(cryptoSearch.toLowerCase()) || 
-      crypto.symbol.toLowerCase().includes(cryptoSearch.toLowerCase())
-  );
-  
+  const filteredCryptos = cryptocurrencies.filter(crypto => crypto.name.toLowerCase().includes(cryptoSearch.toLowerCase()) || crypto.symbol.toLowerCase().includes(cryptoSearch.toLowerCase()));
   return <>
       <div className="flex items-center mb-6">
         <Calculator className="w-5 h-5 mr-2 text-crypto-blue" />
@@ -72,30 +64,19 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
                     <div className="px-3 py-2 sticky top-0 bg-crypto-dark z-10">
                       <div className="relative">
                         <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="Search cryptocurrencies..."
-                          className="pl-8 text-white"
-                          value={cryptoSearch}
-                          onChange={(e) => setCryptoSearch(e.target.value)}
-                        />
+                        <Input placeholder="Search cryptocurrencies..." value={cryptoSearch} onChange={e => setCryptoSearch(e.target.value)} className="pl-8 text-black" />
                       </div>
                     </div>
-                    {filteredCryptos.length > 0 ? (
-                      filteredCryptos.map(crypto => (
-                        <SelectItem key={crypto.symbol} value={crypto.symbol}>
+                    {filteredCryptos.length > 0 ? filteredCryptos.map(crypto => <SelectItem key={crypto.symbol} value={crypto.symbol}>
                           <div className="flex items-center">
                             <div className="w-3 h-3 rounded-full mr-2" style={{
-                              backgroundColor: crypto.color
-                            }}></div>
+                    backgroundColor: crypto.color
+                  }}></div>
                             {crypto.name} ({crypto.symbol})
                           </div>
-                        </SelectItem>
-                      ))
-                    ) : (
-                      <div className="px-2 py-4 text-center text-sm text-muted-foreground">
+                        </SelectItem>) : <div className="px-2 py-4 text-center text-sm text-muted-foreground">
                         No cryptocurrencies found
-                      </div>
-                    )}
+                      </div>}
                   </SelectContent>
                 </Select>
               </FormItem>} />
@@ -171,5 +152,4 @@ const CalculatorForm: React.FC<CalculatorFormProps> = ({
       </Form>
     </>;
 };
-
 export default CalculatorForm;
