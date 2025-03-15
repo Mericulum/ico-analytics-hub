@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import DashboardLayout from '@/components/DashboardLayout';
 import { SentimentHeader } from '@/components/sentiment/SentimentHeader';
@@ -70,7 +69,7 @@ const SentimentAnalysis = () => {
   };
 
   return (
-    <DashboardLayout hasIcons requiresAuth={false}>
+    <DashboardLayout>
       <div className="container max-w-screen-xl mx-auto py-6 space-y-6">
         <SentimentHeader 
           filters={filters} 
