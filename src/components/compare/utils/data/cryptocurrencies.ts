@@ -201,7 +201,7 @@ export const cryptocurrencies = [
     website: "https://www.avalabs.org/",
     twitter: "https://twitter.com/avalancheavax",
   },
-    {
+  {
     id: "shiba-inu",
     name: "Shiba Inu",
     symbol: "SHIB",
@@ -216,7 +216,7 @@ export const cryptocurrencies = [
     name: "Polygon",
     symbol: "MATIC",
     logo: "/placeholder.svg",
-    category: "Layer 1" as CryptoCategory, // Changed from "Layer 2"
+    category: "Layer 1" as CryptoCategory,
     description: "Polygon is a protocol and a framework for building and connecting Ethereum-compatible blockchain networks.",
     website: "https://polygon.technology/",
     twitter: "https://twitter.com/0xPolygon",
@@ -226,9 +226,29 @@ export const cryptocurrencies = [
     name: "Filecoin",
     symbol: "FIL",
     logo: "/placeholder.svg",
-    category: "DeFi" as CryptoCategory, // Changed from "Storage"
+    category: "DeFi" as CryptoCategory,
     description: "Filecoin is an open-source, public cryptocurrency and digital payment system intended to be a blockchain-based cooperative digital storage and data retrieval method.",
     website: "https://filecoin.io/",
     twitter: "https://twitter.com/Filecoin",
   },
+  {
+    id: "ox",
+    name: "0x",
+    symbol: "ZRX",
+    logo: "/placeholder.svg",
+    category: "DeFi" as CryptoCategory,
+    description: "0x is an open protocol that enables the peer-to-peer exchange of assets on the Ethereum blockchain.",
+    website: "https://0x.org/",
+    twitter: "https://twitter.com/0xproject",
+  },
+  {
+    id: "usual",
+    name: "USUAL",
+    symbol: "USUAL",
+    logo: "/placeholder.svg",
+    category: "DeFi" as CryptoCategory,
+    description: "USUAL is a DeFi protocol focused on providing innovative financial solutions and services on the blockchain.",
+    website: "https://usual.finance/",
+    twitter: "https://twitter.com/usualfinance",
+  }
 ];
