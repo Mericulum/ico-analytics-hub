@@ -76,14 +76,15 @@ const HeroSection = () => {
     }, 1000);
     
     // Parallax effect for background elements
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       const parallaxElements = document.querySelectorAll('.parallax-bg');
       const x = (window.innerWidth - e.pageX * 2) / 100;
       const y = (window.innerHeight - e.pageY * 2) / 100;
       
-      parallaxElements.forEach(el => {
-        const speed = el.getAttribute('data-speed') || 5;
-        el.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+      parallaxElements.forEach((el) => {
+        const htmlElement = el as HTMLElement;
+        const speed = htmlElement.getAttribute('data-speed') || '5';
+        htmlElement.style.transform = `translate(${x * parseFloat(speed)}px, ${y * parseFloat(speed)}px)`;
       });
     };
     

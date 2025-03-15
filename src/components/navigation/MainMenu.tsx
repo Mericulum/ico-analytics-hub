@@ -1,10 +1,11 @@
 
-import { Calculator, BarChart2, Newspaper, Crown, Gamepad2, BookOpen, LineChart, BarChart, ShieldCheck, FileText, Search, Globe } from "lucide-react";
+import { Calculator, BarChart2, Newspaper, Crown, Gamepad2, BookOpen, LineChart, BarChart, ShieldCheck, FileText, Search, Globe, TrendingUp } from "lucide-react";
 
 export const mainMenuItems = [
   { icon: BookOpen, label: "Research", path: "/research" },
   { icon: BarChart, label: "ICO Dashboard", path: "/ico-dashboard" },
   { icon: ShieldCheck, label: "Scanner", path: "/scanner" },
+  { icon: TrendingUp, label: "Sentiment", path: "/sentiment" },
   { icon: Newspaper, label: "News", path: "/news" },
   { icon: FileText, label: "Blog", path: "/blog" },
   { icon: Crown, label: "Subscription", path: "/subscription" },

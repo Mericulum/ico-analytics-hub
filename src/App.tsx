@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
@@ -20,6 +19,7 @@ const ICODashboard = lazy(() => import("@/pages/ICODashboard"));
 const ContractScanner = lazy(() => import("@/pages/ContractScanner"));
 const Calculator = lazy(() => import("@/pages/Calculator"));
 const Compare = lazy(() => import("@/pages/Compare"));
+const SentimentAnalysis = lazy(() => import("@/pages/SentimentAnalysis"));
 
 const LoadingFallback = () => (
   <Card className="p-6 m-4">
@@ -59,6 +59,7 @@ function App() {
             <Route path="/scanner" element={<ContractScanner />} />
             <Route path="/calculator" element={<Calculator />} />
             <Route path="/compare" element={<Compare />} />
+            <Route path="/sentiment" element={<SentimentAnalysis />} />
           </Routes>
         </Suspense>
         <Toaster />
