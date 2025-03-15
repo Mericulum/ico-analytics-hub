@@ -178,4 +178,68 @@
   .animate-slideIn {
     animation: slideIn 0.5s ease-out forwards;
   }
+
+  /* New interactive background animations */
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes floatBubble {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.4;
+    }
+    100% {
+      transform: translateY(-120vh) translateX(var(--tx)) rotate(var(--r));
+      opacity: 0;
+    }
+  }
+  
+  .animate-gradient {
+    background: linear-gradient(-45deg, #143442, #1A4251, #0D2C38, #265A6B);
+    background-size: 400% 400%;
+    animation: gradientFlow 15s ease infinite;
+  }
+  
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(111, 213, 255, 0.8), rgba(111, 213, 255, 0.1));
+    box-shadow: 0 0 10px rgba(111, 213, 255, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.3);
+    animation: floatBubble calc(var(--d) * 1s) ease-in infinite;
+    z-index: -1;
+    backdrop-filter: blur(1px);
+  }
+  
+  .interactive-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .interactive-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(111, 213, 255, 0.2);
+  }
+  
+  .parallax-container {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+  
+  .parallax-element {
+    transition: transform 0.2s ease-out;
+  }
 }
