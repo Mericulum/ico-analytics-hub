@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { DashboardLayout } from '@/components/DashboardLayout';
+import DashboardLayout from '@/components/DashboardLayout';
 import { SentimentHeader } from '@/components/sentiment/SentimentHeader';
 import { SentimentOverviewCard } from '@/components/sentiment/SentimentOverviewCard';
 import { SentimentTrendChart } from '@/components/sentiment/SentimentTrendChart';

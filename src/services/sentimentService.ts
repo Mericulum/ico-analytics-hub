@@ -1,6 +1,6 @@
 
 import { useQuery } from "@tanstack/react-query";
-import { ICOSentiment, SentimentData, SentimentFilters, SentimentOverview } from "@/types/sentiment";
+import { ICOSentiment, SentimentData, SentimentFilters, SentimentOverview, RiskLevel } from "@/types/sentiment";
 
 // Mock data for demonstration
 const generateMockSentimentData = (): SentimentOverview => {
@@ -166,7 +166,7 @@ const generateMockSentimentData = (): SentimentOverview => {
       icoName: "RiskyCoin",
       alertType: "Potential Scam",
       description: "Multiple red flags detected in social media discussions about RiskyCoin, including promises of unrealistic returns and anonymous team.",
-      severity: "high",
+      severity: "high" as RiskLevel,
       source: "twitter"
     },
     {
@@ -175,7 +175,7 @@ const generateMockSentimentData = (): SentimentOverview => {
       icoName: "Luna Classic",
       alertType: "Market Manipulation",
       description: "Unusual activity detected with coordinated posts promoting buying across multiple platforms.",
-      severity: "moderate",
+      severity: "moderate" as RiskLevel,
       source: "reddit"
     },
     {
@@ -184,7 +184,7 @@ const generateMockSentimentData = (): SentimentOverview => {
       icoName: "DeFiProtocol",
       alertType: "Regulatory Concern",
       description: "News reports indicate potential regulatory scrutiny for this token type in major markets.",
-      severity: "moderate",
+      severity: "moderate" as RiskLevel,
       source: "news"
     }
   ];
